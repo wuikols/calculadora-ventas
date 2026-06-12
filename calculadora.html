@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Ventas - Pompeyo Carrasco</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="autos_db.js"></script>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --primary: #3b82f6;
+            --primary-hover: #2563eb;
+            --accent: #10b981;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --gradient-accent: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.15) 0px, transparent 50%);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            margin-bottom: 2rem;
+            align-items: start;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            .results-section {
+                position: relative !important;
+                top: 0 !important;
+            }
+        }
+
+        .section {
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .inputs-section {
+            border-right: 1px solid var(--border-color);
+        }
+
+        .results-section {
+            background: rgba(15, 23, 42, 0.6);
+            display: flex;
+            flex-direction: column;
+            position: sticky;
+            top: 2rem;
+            align-self: start;
+            border-radius: 0 24px 24px 0;
+        }
+        
+        @media (max-width: 900px) {
+            .results-section {
+                border-radius: 0 0 24px 24px;
+                height: auto;
+            }
+            .inputs-section {
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+        }
+
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .btn-icon {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .btn-icon:hover {
+            color: var(--text-main);
+        }
+
+        .gear-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .gear-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        h1, h2 {
+            font-weight: 800;
+            margin-bottom: 0.25rem;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.subtitle {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .tabs-container {
+            display: flex;
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 12px;
+            padding: 0.35rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .tab {
+            flex: 1;
+            padding: 0.85rem;
+            text-align: center;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab:not(.active):hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .form-row > .form-group {
+            flex: 1;
+        }
+
+        label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .lbl-dynamic {
+            color: var(--primary);
+            font-weight: 800;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-main);
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        select:focus, input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+            background: rgba(30, 41, 59, 0.8);
+        }
+        
+        select:disabled, input:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            color: var(--text-muted);
+            pointer-events: none;
+            font-weight: 600;
+        }
+
+        .input-wrapper input {
+            padding-left: 2.5rem;
+        }
+
+        .pct-wrapper .input-icon {
+            left: auto;
+            right: 1rem;
+        }
+        .pct-wrapper input {
+            padding-left: 1rem;
+            padding-right: 2.5rem;
+        }
+
+        .comparativa-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(59, 130, 246, 0.1));
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #d1fae5;
+            display: none;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border-left: 4px solid var(--accent);
+        }
+        
+        .comparativa-box.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+            font-size: 1.05rem;
+            color: var(--text-muted);
+        }
+
+        .result-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .result-row.highlight {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .result-row.accent {
+            color: var(--accent);
+            font-weight: 800;
+            font-size: 1.15rem;
+            border-top: 1px dashed var(--border-color);
+            padding-top: 0.75rem;
+            margin-top: 0.75rem;
+        }
+
+        .semaforo-red { color: #ef4444 !important; }
+        .semaforo-yellow { color: #eab308 !important; }
+        .semaforo-green { color: #22c55e !important; }
+
+        .final-price-wrapper {
+            text-align: right;
+            margin-top: auto;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .final-price-label {
+            color: var(--text-muted);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .final-price {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--text-main);
+            line-height: 1.1;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .final-price-neto {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+
+        .btn-reset, .btn-primary {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-reset {
+            margin-top: 1rem;
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-reset:hover {
+            background: rgba(239, 68, 68, 0.2);
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.2);
+            border-color: rgba(239, 68, 68, 0.5);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+            margin-top: 1rem;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Modal Styles */
+        .modal-backdrop {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal-backdrop.show {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .modal {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 420px;
+            padding: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-backdrop.show .modal {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .modal-header h3 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+        
+        .modal-body {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Modal Configuración -->
+    <div id="settingsModal" class="modal-backdrop">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Configuración de Semáforo</h3>
+                <button id="btnCloseModal" class="btn-icon">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="inputUmbralRojo">Umbral de Alerta (Rojo) %</label>
+                    <div class="input-wrapper pct-wrapper">
+                        <input type="number" id="inputUmbralRojo" step="0.1" value="3">
+                        <span class="input-icon">%</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputUmbralVerde">Umbral Óptimo (Verde) %</label>
+                    <div class="input-wrapper pct-wrapper">
+                        <input type="number" id="inputUmbralVerde" step="0.1" value="6">
+                        <span class="input-icon">%</span>
+                    </div>
+                </div>
+                <button id="btnSaveSettings" class="btn-primary">Guardar Configuración</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="section inputs-section">
+            <div class="header-row">
+                <div>
+                    <h1>Calculadora de Ventas</h1>
+                    <p class="subtitle">Simulador y Optimizador Comercial B2B/Retail</p>
+                </div>
+                <button id="btnSettings" class="btn-icon gear-btn" title="Configurar Semáforo">⚙️</button>
+            </div>
+
+            <div class="form-group">
+                <label>Tipo de Venta</label>
+                <div class="tabs-container">
+                    <button id="tabRetail" class="tab active">Retail</button>
+                    <button id="tabComercial" class="tab">Comercial (B2B)</button>
+                </div>
+                <label style="display:flex; align-items:center; gap:0.5rem; color:#ef4444; cursor:pointer; margin-top:0.5rem; font-size:0.85rem; font-weight:600;">
+                    <input type="checkbox" id="chkExcepcion"> ⚠️ Desbloquear Topes (Excepción)
+                </label>
+            </div>
+
+            <div class="form-row" id="b2bSelectors" style="display: none;">
+                <div class="form-group">
+                    <label for="tipoConcesionario">Concesionario</label>
+                    <select id="tipoConcesionario">
+                        <option value="prof">Professional</option>
+                        <option value="noprof">No Professional</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="tramoB2b">Tramo B2B</label>
+                    <select id="tramoB2b">
+                        <option value="t1">Tramo 1</option>
+                        <option value="t2">Tramo 2</option>
+                        <option value="gc">Grandes Cuentas</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="marca">Marca</label>
+                <select id="marca">
+                    <option value="">Seleccione una marca</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="modelo">Modelo</label>
+                <select id="modelo" disabled>
+                    <option value="">Seleccione un modelo</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="medioPago">Medio de Pago</label>
+                <select id="medioPago" disabled>
+                    <option value="contado">Todo Medio de Pago</option>
+                    <option value="credito_convencional">Crédito Convencional</option>
+                    <option value="compra_inteligente">Compra Inteligente</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label style="margin-bottom: 0.25rem;">Aporte Stellantis (Bono Marca)</label>
+                <div style="display:flex; gap:1rem; font-size:0.75rem; color:var(--text-muted); margin-bottom:0.25rem; font-weight:600; text-transform:uppercase;">
+                    <div style="flex: 1.5; padding-left: 0.5rem;">Monto Neto</div>
+                    <div style="flex: 1.5; padding-left: 0.5rem;">Monto Bruto</div>
+                    <div style="flex: 1; padding-left: 0.5rem;">Porcentaje</div>
+                </div>
+                <div class="form-row">
+                    <div class="input-wrapper" style="flex: 1.5;" title="Neto (Sin IVA)">
+                        <span class="input-icon">$</span>
+                        <input type="text" id="aporteStellantisNeto" value="0" disabled placeholder="Neto">
+                    </div>
+                    <div class="input-wrapper" style="flex: 1.5;" title="Bruto (Con IVA)">
+                        <span class="input-icon">$</span>
+                        <input type="text" id="aporteStellantisBruto" value="0" disabled placeholder="Bruto">
+                    </div>
+                    <div class="input-wrapper pct-wrapper" style="flex: 1;">
+                        <input type="text" id="aporteStellantisPct" value="0" disabled placeholder="%">
+                        <span class="input-icon">%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label style="margin-bottom: 0.25rem;">Aporte Red (Bono Pompeyo)</label>
+                <div style="display:flex; gap:1rem; font-size:0.75rem; color:var(--text-muted); margin-bottom:0.25rem; font-weight:600; text-transform:uppercase;">
+                    <div style="flex: 1.5; padding-left: 0.5rem;">Monto Neto</div>
+                    <div style="flex: 1.5; padding-left: 0.5rem;">Monto Bruto</div>
+                    <div style="flex: 1; padding-left: 0.5rem;">Porcentaje</div>
+                </div>
+                <div class="form-row">
+                    <div class="input-wrapper" style="flex: 1.5;" title="Neto (Sin IVA)">
+                        <span class="input-icon">$</span>
+                        <input type="text" id="bonoRedNeto" value="0" disabled placeholder="Neto">
+                    </div>
+                    <div class="input-wrapper" style="flex: 1.5;" title="Bruto (Con IVA)">
+                        <span class="input-icon">$</span>
+                        <input type="text" id="bonoRedBruto" value="0" disabled placeholder="Bruto">
+                    </div>
+                    <div class="input-wrapper pct-wrapper" style="flex: 1;">
+                        <input type="text" id="bonoRedPct" value="0" disabled placeholder="%">
+                        <span class="input-icon">%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label style="margin-bottom: 0.25rem;">Aporte Financiera (Bono Financiamiento)</label>
+                <div style="display:flex; gap:1rem; font-size:0.75rem; color:var(--text-muted); margin-bottom:0.25rem; font-weight:600; text-transform:uppercase;">
+                    <div style="flex: 1.5; padding-left: 0.5rem;">Monto Neto</div>
+                    <div style="flex: 1.5; padding-left: 0.5rem;">Monto Bruto</div>
+                </div>
+                <div class="form-row">
+                    <div class="input-wrapper" style="flex: 1.5;" title="Neto (Sin IVA)">
+                        <span class="input-icon">$</span>
+                        <input type="text" id="aporteFiNeto" value="0" disabled placeholder="Neto">
+                    </div>
+                    <div class="input-wrapper" style="flex: 1.5;" title="Bruto (Con IVA)">
+                        <span class="input-icon">$</span>
+                        <input type="text" id="aporteFiBruto" value="0" disabled placeholder="Bruto">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label style="margin-bottom: 0.25rem;">Accesorios</label>
+                <div style="display:flex; gap:1rem; font-size:0.75rem; color:var(--text-muted); margin-bottom:0.25rem; font-weight:600; text-transform:uppercase;">
+                    <div style="flex: 1.5; padding-left: 0.5rem;">Monto Neto</div>
+                    <div style="flex: 1.5; padding-left: 0.5rem;">Monto Bruto</div>
+                </div>
+                <div class="form-row">
+                    <div class="input-wrapper" style="flex: 1.5;" title="Neto (Sin IVA)">
+                        <span class="input-icon">$</span>
+                        <input type="text" id="accesoriosNeto" value="0" disabled placeholder="Neto">
+                    </div>
+                    <div class="input-wrapper" style="flex: 1.5;" title="Bruto (Con IVA)">
+                        <span class="input-icon">$</span>
+                        <input type="text" id="accesoriosBruto" value="0" disabled placeholder="Bruto">
+                    </div>
+                </div>
+            </div>
+
+            <button id="btnReset" class="btn-reset">Borrar Datos / Reiniciar</button>
+        </div>
+
+        <div class="section results-section">
+            <div>
+                <h2>Desglose de Operación</h2>
+                <p class="subtitle">Valores Netos (Sin IVA)</p>
+
+                <div class="result-card">
+                    <div class="result-row">
+                        <span>Precio Lista Neto</span>
+                        <span id="resPrecioLista">$0</span>
+                    </div>
+                    <div class="result-row">
+                        <span>Aporte Stellantis Neto (Bono Marca)</span>
+                        <span id="resAporteStellantis">-$0</span>
+                    </div>
+                    <div class="result-row">
+                        <span>Bono Red Neto (Bono Pompeyo)</span>
+                        <span id="resBonoRed">-$0</span>
+                    </div>
+                    <div class="result-row">
+                        <span>Aporte Financiera Neto (Bono Financiamiento)</span>
+                        <span id="resAporteFi">-$0</span>
+                    </div>
+                    <div class="result-row highlight" style="color: var(--accent);">
+                        <span>Descuento Total Neto</span>
+                        <span id="resDescuentoTotal">-$0</span>
+                    </div>
+                    <div class="result-row highlight">
+                        <span>Costo Vehículo (Para Concesionario)</span>
+                        <span id="resCosto">$0</span>
+                    </div>
+                </div>
+
+                <div class="result-card">
+                    <div class="result-row">
+                        <span>Margen de Compra (10%)</span>
+                        <span id="resMargenTotal">$0</span>
+                    </div>
+                    <div class="result-row accent">
+                        <span>Utilidad Final Concesionario</span>
+                        <span id="resUtilidad">$0 (0%)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="final-price-wrapper">
+                <div class="final-price-label">Precio Final Cliente (Con IVA)</div>
+                <div class="final-price" id="resFinalBruto">$0</div>
+                <div class="final-price-neto" id="resFinalNeto">Neto: $0</div>
+            </div>
+
+            <div class="comparativa-box" id="comparativaBox" style="margin-top: 1.5rem;">
+                <!-- Dinamically injected content -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const formatMoney = (amount) => {
+            return new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', maximumFractionDigits: 0 }).format(amount);
+        };
+
+        const formatPercent = (val) => {
+            return parseFloat(val).toFixed(2) + '%';
+        };
+
+        const parseMoney = (str) => {
+            if (!str) return 0;
+            const clean = str.toString().replace(/\./g, '').replace(/[^0-9]/g, '');
+            return parseInt(clean, 10) || 0;
+        };
+
+        const applyMask = (input) => {
+            let val = parseMoney(input.value);
+            if (val === 0 && input.value === '') {
+                input.value = '';
+                return;
+            }
+            input.value = new Intl.NumberFormat('es-CL').format(val);
+        };
+
+        const state = {
+            tipoVenta: 'retail',
+            tipoConcesionario: 'prof',
+            tramoB2b: 't1',
+            excepcionTopes: false,
+            marca: null,
+            modelo: null,
+            medioPago: 'contado',
+            bonoRedVal: 0, // This variable will exclusively store NETO
+            aporteStellantisVal: 0, // NETO
+            aporteFiVal: 0, // NETO
+            accesoriosVal: 0, // NETO
+            umbralRojo: 3,
+            umbralVerde: 6
+        };
+
+        const updateLabels = () => {
+            document.getElementById('b2bSelectors').style.display = state.tipoVenta === 'retail' ? 'none' : 'flex';
+        };
+
+        const tabRetail = document.getElementById('tabRetail');
+        const tabComercial = document.getElementById('tabComercial');
+        const selectTipoConcesionario = document.getElementById('tipoConcesionario');
+        const selectTramoB2b = document.getElementById('tramoB2b');
+        const selectMarca = document.getElementById('marca');
+        const selectModelo = document.getElementById('modelo');
+        const selectMedioPago = document.getElementById('medioPago');
+        const chkExcepcion = document.getElementById('chkExcepcion');
+
+        const inputBonoRedNeto = document.getElementById('bonoRedNeto');
+        const inputBonoRedBruto = document.getElementById('bonoRedBruto');
+        const inputBonoRedPct = document.getElementById('bonoRedPct');
+
+        const inputAporteStellantisNeto = document.getElementById('aporteStellantisNeto');
+        const inputAporteStellantisBruto = document.getElementById('aporteStellantisBruto');
+        const inputAporteStellantisPct = document.getElementById('aporteStellantisPct');
+
+        const inputAporteFiNeto = document.getElementById('aporteFiNeto');
+        const inputAporteFiBruto = document.getElementById('aporteFiBruto');
+
+        const inputAccesoriosNeto = document.getElementById('accesoriosNeto');
+        const inputAccesoriosBruto = document.getElementById('accesoriosBruto');
+
+        const comparativaBox = document.getElementById('comparativaBox');
+
+        // Populate Marcas
+        const marcas = [...new Set(autos_db.map(a => a.marca))].sort();
+        marcas.forEach(m => {
+            const opt = document.createElement('option');
+            opt.value = m;
+            opt.textContent = m;
+            selectMarca.appendChild(opt);
+        });
+
+        const getB2bKey = (tramo) => tramo === 'gc' ? 'gc' : `${state.tipoConcesionario}_${tramo}`;
+
+        const getTopes = (car) => {
+            if (state.tipoVenta === 'retail') {
+                return { red: 2.5 };
+            } else {
+                const b2bKey = getB2bKey(state.tramoB2b);
+                const redTope = (car.b2b && car.b2b.red && car.b2b.red[b2bKey]) ? car.b2b.red[b2bKey] : 0;
+                return { red: redTope * 100 }; // Ensure it's in percentage 0-100 scale
+            }
+        };
+
+        const calculateSimulation = (car, typeVenta, tramo) => {
+            // Simulador interno para caja comparativa
+            const precioListaNeto = car.precio_lista_sin_iva;
+            const pagoData = car.medios_pago[state.medioPago] || car.medios_pago['contado'];
+
+            let aporteStellantisNeto = 0;
+            let bonoRedNeto = 0;
+
+            if (typeVenta === 'retail') {
+                aporteStellantisNeto = pagoData.aporte_stellantis_neto || 0;
+                bonoRedNeto = precioListaNeto * 0.025; // max 2.5%
+            } else {
+                const b2bKey = getB2bKey(tramo);
+                aporteStellantisNeto = (car.b2b && car.b2b.stellantis && car.b2b.stellantis[b2bKey]) ? (precioListaNeto * car.b2b.stellantis[b2bKey]) : 0;
+                const b2bRedTope = (car.b2b && car.b2b.red && car.b2b.red[b2bKey]) ? car.b2b.red[b2bKey] : 0;
+                bonoRedNeto = precioListaNeto * b2bRedTope;
+            }
+
+            const aporteFiNeto = pagoData.aporte_fi_neto || 0;
+            
+            const margenCompraPct = car.margen_compra_pct || 0.10;
+            const margenCompraNeto = precioListaNeto * margenCompraPct;
+            const utilidadNeto = margenCompraNeto - bonoRedNeto; // Accesorios 0 en simulación
+            const utilidadPct = (utilidadNeto / precioListaNeto) * 100;
+
+            const descuentoTotalNeto = bonoRedNeto + aporteStellantisNeto + aporteFiNeto;
+            const precioVentaNeto = precioListaNeto - descuentoTotalNeto;
+            const precioVentaBruto = precioVentaNeto * 1.19;
+
+            return {
+                type: typeVenta,
+                precioBruto: precioVentaBruto,
+                utilidadPct: utilidadPct
+            };
+        };
+
+        const updateComparativa = () => {
+            if (!state.modelo) {
+                comparativaBox.classList.remove('active');
+                return;
+            }
+            const car = autos_db.find(a => a.id === state.modelo);
+            const simRetail = calculateSimulation(car, 'retail', state.tramoB2b);
+            const simComercial = calculateSimulation(car, 'comercial', state.tramoB2b);
+
+            let best = null;
+            const valid = [];
+            if (simRetail.utilidadPct >= 3) valid.push(simRetail);
+            if (simComercial.utilidadPct >= 3) valid.push(simComercial);
+
+            if (valid.length > 0) {
+                best = valid.reduce((prev, curr) => (curr.precioBruto < prev.precioBruto) ? curr : prev);
+            }
+
+            if (best) {
+                const typeName = best.type === 'retail' ? 'Venta Retail' : 'Venta Comercial';
+                comparativaBox.innerHTML = `<strong>Simulación Óptima:</strong> Con este modelo y medio de pago, la mejor opción es <strong>${typeName}</strong>, entregando un precio cliente de <strong>${formatMoney(best.precioBruto)}</strong> y manteniendo un <strong>${formatPercent(best.utilidadPct)}</strong> de margen.`;
+                comparativaBox.classList.add('active');
+            } else {
+                comparativaBox.classList.remove('active');
+            }
+        };
+
+        const renderTripleInputs = (force = false) => {
+            if (!state.modelo) return;
+            const car = autos_db.find(a => a.id === state.modelo);
+            const pNeto = car.precio_lista_sin_iva;
+
+            // Bono Red
+            if (force || document.activeElement !== inputBonoRedNeto) inputBonoRedNeto.value = new Intl.NumberFormat('es-CL').format(Math.round(state.bonoRedVal));
+            if (force || document.activeElement !== inputBonoRedBruto) inputBonoRedBruto.value = new Intl.NumberFormat('es-CL').format(Math.round(state.bonoRedVal * 1.19));
+            if (inputBonoRedPct && (force || document.activeElement !== inputBonoRedPct)) inputBonoRedPct.value = ((state.bonoRedVal / pNeto) * 100).toFixed(2);
+
+            // Stellantis
+            if (force || document.activeElement !== inputAporteStellantisNeto) inputAporteStellantisNeto.value = new Intl.NumberFormat('es-CL').format(Math.round(state.aporteStellantisVal));
+            if (force || document.activeElement !== inputAporteStellantisBruto) inputAporteStellantisBruto.value = new Intl.NumberFormat('es-CL').format(Math.round(state.aporteStellantisVal * 1.19));
+            if (inputAporteStellantisPct && (force || document.activeElement !== inputAporteStellantisPct)) inputAporteStellantisPct.value = ((state.aporteStellantisVal / pNeto) * 100).toFixed(2);
+
+            // Fi
+            if (force || document.activeElement !== inputAporteFiNeto) inputAporteFiNeto.value = new Intl.NumberFormat('es-CL').format(Math.round(state.aporteFiVal));
+            if (force || document.activeElement !== inputAporteFiBruto) inputAporteFiBruto.value = new Intl.NumberFormat('es-CL').format(Math.round(state.aporteFiVal * 1.19));
+
+            // Accesorios
+            if (force || document.activeElement !== inputAccesoriosNeto) inputAccesoriosNeto.value = new Intl.NumberFormat('es-CL').format(Math.round(state.accesoriosVal));
+            if (force || document.activeElement !== inputAccesoriosBruto) inputAccesoriosBruto.value = new Intl.NumberFormat('es-CL').format(Math.round(state.accesoriosVal * 1.19));
+        };
+
+        const calculate = () => {
+            if (!state.modelo) return;
+
+            const car = autos_db.find(a => a.id === state.modelo);
+
+            // 1. Base Prices
+            const precioListaNeto = car.precio_lista_sin_iva;
+
+            // 2. Validate Topes for Bono Red
+            const topes = getTopes(car);
+            let userBonoRedNeto = state.bonoRedVal;
+            let currentBonoRedPct = (userBonoRedNeto / precioListaNeto) * 100;
+            
+            if (currentBonoRedPct > topes.red && !state.excepcionTopes) {
+                currentBonoRedPct = topes.red;
+                userBonoRedNeto = precioListaNeto * (currentBonoRedPct / 100);
+                state.bonoRedVal = userBonoRedNeto;
+                renderTripleInputs(true);
+            }
+
+            // 3. Aportes (From Inputs -> Netos)
+            const aporteStellantisNeto = state.aporteStellantisVal;
+            const aporteFiNeto = state.aporteFiVal;
+            const bonoRedNeto = userBonoRedNeto;
+            const accesoriosNeto = state.accesoriosVal;
+
+            // 4. Margins
+            const margenCompraPct = car.margen_compra_pct || 0.10;
+            const margenCompraNeto = precioListaNeto * margenCompraPct;
+
+            // 5. Costo
+            const costoVehiculo = precioListaNeto - margenCompraNeto - aporteStellantisNeto - aporteFiNeto;
+
+            // 6. Utilidad
+            const utilidadNeto = margenCompraNeto - bonoRedNeto - accesoriosNeto;
+            const utilidadPct = (utilidadNeto / precioListaNeto) * 100;
+
+            // 7. Venta y Descuento Total
+            const descuentoTotalNeto = bonoRedNeto + aporteStellantisNeto + aporteFiNeto;
+            const precioVentaNeto = precioListaNeto - descuentoTotalNeto;
+            const precioVentaBruto = precioVentaNeto * 1.19;
+
+            // Update DOM
+            document.getElementById('resPrecioLista').textContent = formatMoney(precioListaNeto);
+            document.getElementById('resAporteStellantis').textContent = '-' + formatMoney(aporteStellantisNeto);
+            document.getElementById('resAporteFi').textContent = '-' + formatMoney(aporteFiNeto);
+            document.getElementById('resBonoRed').textContent = '-' + formatMoney(bonoRedNeto);
+            document.getElementById('resDescuentoTotal').textContent = '-' + formatMoney(descuentoTotalNeto);
+            document.getElementById('resCosto').textContent = formatMoney(costoVehiculo);
+            
+            document.getElementById('resMargenTotal').textContent = formatMoney(margenCompraNeto);
+            
+            const resUtilidad = document.getElementById('resUtilidad');
+            resUtilidad.textContent = `${formatMoney(utilidadNeto)} (${formatPercent(utilidadPct)})`;
+            
+            // Semáforo visual
+            resUtilidad.classList.remove('semaforo-red', 'semaforo-yellow', 'semaforo-green');
+            if (utilidadPct < state.umbralRojo) {
+                resUtilidad.classList.add('semaforo-red');
+            } else if (utilidadPct >= state.umbralRojo && utilidadPct < state.umbralVerde) {
+                resUtilidad.classList.add('semaforo-yellow');
+            } else {
+                resUtilidad.classList.add('semaforo-green');
+            }
+
+            document.getElementById('resFinalNeto').textContent = `Neto: ${formatMoney(precioVentaNeto)}`;
+            document.getElementById('resFinalBruto').textContent = formatMoney(precioVentaBruto);
+
+            updateComparativa();
+        };
+
+        const loadDefaults = () => {
+            const car = autos_db.find(a => a.id === state.modelo);
+            if (!car) return;
+            const pagoData = car.medios_pago[state.medioPago] || car.medios_pago['contado'];
+
+            // Aporte Stellantis
+            let defaultStellantisNeto = pagoData.aporte_stellantis_neto || 0;
+            if (state.tipoVenta === 'comercial') {
+                const b2bKey = getB2bKey(state.tramoB2b);
+                if (car.b2b && car.b2b.stellantis && car.b2b.stellantis[b2bKey] !== undefined) {
+                    defaultStellantisNeto = car.precio_lista_sin_iva * car.b2b.stellantis[b2bKey];
+                }
+            }
+            state.aporteStellantisVal = defaultStellantisNeto;
+
+            // Bono Red
+            const topes = getTopes(car);
+            const defaultBonoRedPct = state.tipoVenta === 'retail' ? ((pagoData.aporte_red_neto || 0) / car.precio_lista_sin_iva * 100) : topes.red;
+            const safePct = state.excepcionTopes ? defaultBonoRedPct : Math.min(defaultBonoRedPct, topes.red);
+            const defaultBonoRedNeto = car.precio_lista_sin_iva * (safePct / 100);
+            state.bonoRedVal = defaultBonoRedNeto;
+
+            // Aporte FI
+            state.aporteFiVal = (pagoData.aporte_fi_neto || 0);
+
+            // Accesorios
+            state.accesoriosVal = 0;
+
+            renderTripleInputs();
+        };
+
+        const toggleInputsDisable = (disabled) => {
+            const els = [inputBonoRedNeto, inputBonoRedBruto, inputBonoRedPct, inputAporteStellantisNeto, inputAporteStellantisBruto, inputAporteStellantisPct, inputAporteFiNeto, inputAporteFiBruto, inputAccesoriosNeto, inputAccesoriosBruto];
+            els.forEach(el => {
+                if(el) el.disabled = disabled;
+            });
+        };
+
+        const onCarChange = () => {
+            if (state.modelo) {
+                selectMedioPago.disabled = false;
+                toggleInputsDisable(false);
+                loadDefaults();
+                calculate();
+            } else {
+                selectMedioPago.disabled = true;
+                toggleInputsDisable(true);
+                comparativaBox.classList.remove('active');
+                document.getElementById('resUtilidad').classList.remove('semaforo-red', 'semaforo-yellow', 'semaforo-green');
+            }
+        };
+
+        const updateModelos = () => {
+            selectModelo.innerHTML = '<option value="">Seleccione un modelo</option>';
+            if (!state.marca) {
+                selectModelo.disabled = true;
+                return;
+            }
+            const modelos = autos_db.filter(a => a.marca === state.marca).sort((a,b) => a.modelo.localeCompare(b.modelo));
+            modelos.forEach(m => {
+                const opt = document.createElement('option');
+                opt.value = m.id;
+                opt.textContent = m.modelo;
+                selectModelo.appendChild(opt);
+            });
+            selectModelo.disabled = false;
+        };
+
+        // Event Listeners
+
+        // Tabs Venta
+        const setTipoVenta = (tipo) => {
+            if(state.tipoVenta === tipo) return;
+            state.tipoVenta = tipo;
+            if(tipo === 'retail') {
+                tabRetail.classList.add('active');
+                tabComercial.classList.remove('active');
+            } else {
+                tabComercial.classList.add('active');
+                tabRetail.classList.remove('active');
+            }
+            updateLabels();
+            if (state.modelo) {
+                calculate();
+            }
+        };
+
+        tabRetail.addEventListener('click', () => setTipoVenta('retail'));
+        tabComercial.addEventListener('click', () => setTipoVenta('comercial'));
+
+        // Modal Semáforo
+        const modal = document.getElementById('settingsModal');
+        const btnSettings = document.getElementById('btnSettings');
+        const btnCloseModal = document.getElementById('btnCloseModal');
+        const inputUmbralRojo = document.getElementById('inputUmbralRojo');
+        const inputUmbralVerde = document.getElementById('inputUmbralVerde');
+        const btnSaveSettings = document.getElementById('btnSaveSettings');
+
+        btnSettings.addEventListener('click', () => {
+            inputUmbralRojo.value = state.umbralRojo;
+            inputUmbralVerde.value = state.umbralVerde;
+            modal.classList.add('show');
+        });
+
+        const closeModal = () => modal.classList.remove('show');
+        btnCloseModal.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if(e.target === modal) closeModal();
+        });
+
+        btnSaveSettings.addEventListener('click', () => {
+            state.umbralRojo = parseFloat(inputUmbralRojo.value) || 3;
+            state.umbralVerde = parseFloat(inputUmbralVerde.value) || 6;
+            closeModal();
+            if(state.modelo) calculate();
+        });
+
+        // Other Controls
+        selectTipoConcesionario.addEventListener('change', (e) => {
+            state.tipoConcesionario = e.target.value;
+            if (state.modelo && state.tipoVenta === 'comercial') {
+                loadDefaults();
+                calculate();
+            }
+        });
+
+        selectTramoB2b.addEventListener('change', (e) => {
+            state.tramoB2b = e.target.value;
+            if (state.modelo && state.tipoVenta === 'comercial') {
+                loadDefaults();
+                calculate();
+            }
+        });
+
+        selectMarca.addEventListener('change', (e) => {
+            state.marca = e.target.value;
+            state.modelo = null;
+            updateModelos();
+            onCarChange();
+        });
+
+        selectModelo.addEventListener('change', (e) => {
+            state.modelo = e.target.value;
+            onCarChange();
+        });
+
+        selectMedioPago.addEventListener('change', (e) => {
+            state.medioPago = e.target.value;
+            if (state.modelo) {
+                loadDefaults();
+                calculate();
+            }
+        });
+
+        chkExcepcion.addEventListener('change', (e) => {
+            state.excepcionTopes = e.target.checked;
+            if(state.modelo) calculate();
+        });
+
+        const setupTripleMoneyInput = (netoId, brutoId, pctId, stateKey) => {
+            const elNeto = document.getElementById(netoId);
+            const elBruto = document.getElementById(brutoId);
+            const elPct = pctId ? document.getElementById(pctId) : null;
+            
+            if(elNeto) elNeto.addEventListener('input', (e) => {
+                applyMask(e.target);
+                state[stateKey] = parseMoney(e.target.value);
+                renderTripleInputs();
+                calculate();
+            });
+
+            if(elBruto) elBruto.addEventListener('input', (e) => {
+                applyMask(e.target);
+                state[stateKey] = parseMoney(e.target.value) / 1.19;
+                renderTripleInputs();
+                calculate();
+            });
+
+            if (elPct) {
+                elPct.addEventListener('input', (e) => {
+                    if (!state.modelo) return;
+                    const car = autos_db.find(a => a.id === state.modelo);
+                    const pctStr = e.target.value.replace(',', '.');
+                    const pct = parseFloat(pctStr) || 0;
+                    state[stateKey] = car.precio_lista_sin_iva * (pct / 100);
+                    renderTripleInputs();
+                    calculate();
+                });
+            }
+        };
+
+        setupTripleMoneyInput('bonoRedNeto', 'bonoRedBruto', 'bonoRedPct', 'bonoRedVal');
+        setupTripleMoneyInput('aporteStellantisNeto', 'aporteStellantisBruto', 'aporteStellantisPct', 'aporteStellantisVal');
+        setupTripleMoneyInput('aporteFiNeto', 'aporteFiBruto', null, 'aporteFiVal');
+        setupTripleMoneyInput('accesoriosNeto', 'accesoriosBruto', null, 'accesoriosVal');
+
+        document.getElementById('btnReset').addEventListener('click', () => {
+            setTipoVenta('retail');
+            selectTipoConcesionario.value = "prof";
+            selectTramoB2b.value = "t1";
+            selectMarca.value = "";
+            chkExcepcion.checked = false;
+            state.excepcionTopes = false;
+            
+            selectModelo.innerHTML = '<option value="">Seleccione un modelo</option>';
+            selectModelo.disabled = true;
+            
+            selectMedioPago.value = "contado";
+            selectMedioPago.disabled = true;
+            
+            toggleInputsDisable(true);
+
+            state.tipoConcesionario = 'prof';
+            state.tramoB2b = 't1';
+            state.marca = null;
+            state.modelo = null;
+            state.medioPago = 'contado';
+            state.bonoRedVal = 0;
+            state.aporteStellantisVal = 0;
+            state.aporteFiVal = 0;
+            state.accesoriosVal = 0;
+
+            updateLabels();
+            
+            document.getElementById('resPrecioLista').textContent = '$0';
+            document.getElementById('resAporteStellantis').textContent = '-$0';
+            document.getElementById('resAporteFi').textContent = '-$0';
+            document.getElementById('resBonoRed').textContent = '-$0';
+            document.getElementById('resDescuentoTotal').textContent = '-$0';
+            document.getElementById('resCosto').textContent = '$0';
+            document.getElementById('resMargenTotal').textContent = '$0';
+            const resUtilidad = document.getElementById('resUtilidad');
+            resUtilidad.textContent = '$0 (0.00%)';
+            resUtilidad.classList.remove('semaforo-red', 'semaforo-yellow', 'semaforo-green');
+            document.getElementById('resFinalNeto').textContent = 'Neto: $0';
+            document.getElementById('resFinalBruto').textContent = '$0';
+            comparativaBox.classList.remove('active');
+        });
+
+        // Init
+        updateLabels();
+
+    </script>
+</body>
+</html>
