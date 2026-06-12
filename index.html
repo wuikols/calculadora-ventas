@@ -710,10 +710,14 @@
             marca: null,
             modelo: null,
             medioPago: 'contado',
-            bonoRedVal: 0, // This variable will exclusively store NETO
-            aporteStellantisVal: 0, // NETO
-            aporteFiVal: 0, // NETO
-            accesoriosVal: 0, // NETO
+            retail_bonoRedVal: 0,
+            retail_aporteStellantisVal: 0,
+            retail_aporteFiVal: 0,
+            retail_accesoriosVal: 0,
+            comercial_bonoRedVal: 0,
+            comercial_aporteStellantisVal: 0,
+            comercial_aporteFiVal: 0,
+            comercial_accesoriosVal: 0,
             umbralRojo: 3,
             umbralVerde: 6
         };
@@ -836,23 +840,28 @@
             const car = autos_db.find(a => a.id === state.modelo);
             const pNeto = car.precio_lista_sin_iva;
 
+            const bonoRed = state[state.tipoVenta + '_bonoRedVal'] || 0;
+            const stellantis = state[state.tipoVenta + '_aporteStellantisVal'] || 0;
+            const fi = state[state.tipoVenta + '_aporteFiVal'] || 0;
+            const acc = state[state.tipoVenta + '_accesoriosVal'] || 0;
+
             // Bono Red
-            if (force || document.activeElement !== inputBonoRedNeto) inputBonoRedNeto.value = new Intl.NumberFormat('es-CL').format(Math.round(state.bonoRedVal));
-            if (force || document.activeElement !== inputBonoRedBruto) inputBonoRedBruto.value = new Intl.NumberFormat('es-CL').format(Math.round(state.bonoRedVal * 1.19));
-            if (inputBonoRedPct && (force || document.activeElement !== inputBonoRedPct)) inputBonoRedPct.value = ((state.bonoRedVal / pNeto) * 100).toFixed(2);
+            if (force || document.activeElement !== inputBonoRedNeto) inputBonoRedNeto.value = new Intl.NumberFormat('es-CL').format(Math.round(bonoRed));
+            if (force || document.activeElement !== inputBonoRedBruto) inputBonoRedBruto.value = new Intl.NumberFormat('es-CL').format(Math.round(bonoRed * 1.19));
+            if (inputBonoRedPct && (force || document.activeElement !== inputBonoRedPct)) inputBonoRedPct.value = ((bonoRed / pNeto) * 100).toFixed(2);
 
             // Stellantis
-            if (force || document.activeElement !== inputAporteStellantisNeto) inputAporteStellantisNeto.value = new Intl.NumberFormat('es-CL').format(Math.round(state.aporteStellantisVal));
-            if (force || document.activeElement !== inputAporteStellantisBruto) inputAporteStellantisBruto.value = new Intl.NumberFormat('es-CL').format(Math.round(state.aporteStellantisVal * 1.19));
-            if (inputAporteStellantisPct && (force || document.activeElement !== inputAporteStellantisPct)) inputAporteStellantisPct.value = ((state.aporteStellantisVal / pNeto) * 100).toFixed(2);
+            if (force || document.activeElement !== inputAporteStellantisNeto) inputAporteStellantisNeto.value = new Intl.NumberFormat('es-CL').format(Math.round(stellantis));
+            if (force || document.activeElement !== inputAporteStellantisBruto) inputAporteStellantisBruto.value = new Intl.NumberFormat('es-CL').format(Math.round(stellantis * 1.19));
+            if (inputAporteStellantisPct && (force || document.activeElement !== inputAporteStellantisPct)) inputAporteStellantisPct.value = ((stellantis / pNeto) * 100).toFixed(2);
 
             // Fi
-            if (force || document.activeElement !== inputAporteFiNeto) inputAporteFiNeto.value = new Intl.NumberFormat('es-CL').format(Math.round(state.aporteFiVal));
-            if (force || document.activeElement !== inputAporteFiBruto) inputAporteFiBruto.value = new Intl.NumberFormat('es-CL').format(Math.round(state.aporteFiVal * 1.19));
+            if (force || document.activeElement !== inputAporteFiNeto) inputAporteFiNeto.value = new Intl.NumberFormat('es-CL').format(Math.round(fi));
+            if (force || document.activeElement !== inputAporteFiBruto) inputAporteFiBruto.value = new Intl.NumberFormat('es-CL').format(Math.round(fi * 1.19));
 
             // Accesorios
-            if (force || document.activeElement !== inputAccesoriosNeto) inputAccesoriosNeto.value = new Intl.NumberFormat('es-CL').format(Math.round(state.accesoriosVal));
-            if (force || document.activeElement !== inputAccesoriosBruto) inputAccesoriosBruto.value = new Intl.NumberFormat('es-CL').format(Math.round(state.accesoriosVal * 1.19));
+            if (force || document.activeElement !== inputAccesoriosNeto) inputAccesoriosNeto.value = new Intl.NumberFormat('es-CL').format(Math.round(acc));
+            if (force || document.activeElement !== inputAccesoriosBruto) inputAccesoriosBruto.value = new Intl.NumberFormat('es-CL').format(Math.round(acc * 1.19));
         };
 
         const calculate = () => {
@@ -865,21 +874,21 @@
 
             // 2. Validate Topes for Bono Red
             const topes = getTopes(car);
-            let userBonoRedNeto = state.bonoRedVal;
+            let userBonoRedNeto = state[state.tipoVenta + '_bonoRedVal'] || 0;
             let currentBonoRedPct = (userBonoRedNeto / precioListaNeto) * 100;
             
             if (currentBonoRedPct > topes.red && !state.excepcionTopes) {
                 currentBonoRedPct = topes.red;
                 userBonoRedNeto = precioListaNeto * (currentBonoRedPct / 100);
-                state.bonoRedVal = userBonoRedNeto;
+                state[state.tipoVenta + '_bonoRedVal'] = userBonoRedNeto;
                 renderTripleInputs(true);
             }
 
             // 3. Aportes (From Inputs -> Netos)
-            const aporteStellantisNeto = state.aporteStellantisVal;
-            const aporteFiNeto = state.aporteFiVal;
+            const aporteStellantisNeto = state[state.tipoVenta + '_aporteStellantisVal'] || 0;
+            const aporteFiNeto = state[state.tipoVenta + '_aporteFiVal'] || 0;
             const bonoRedNeto = userBonoRedNeto;
-            const accesoriosNeto = state.accesoriosVal;
+            const accesoriosNeto = state[state.tipoVenta + '_accesoriosVal'] || 0;
 
             // 4. Margins
             const margenCompraPct = car.margen_compra_pct || 0.10;
@@ -926,35 +935,40 @@
             updateComparativa();
         };
 
-        const loadDefaults = () => {
+        const loadDefaultsForType = (type) => {
             const car = autos_db.find(a => a.id === state.modelo);
             if (!car) return;
             const pagoData = car.medios_pago[state.medioPago] || car.medios_pago['contado'];
 
-            // Aporte Stellantis
             let defaultStellantisNeto = pagoData.aporte_stellantis_neto || 0;
-            if (state.tipoVenta === 'comercial') {
+            if (type === 'comercial') {
                 const b2bKey = getB2bKey(state.tramoB2b);
                 if (car.b2b && car.b2b.stellantis && car.b2b.stellantis[b2bKey] !== undefined) {
                     defaultStellantisNeto = car.precio_lista_sin_iva * car.b2b.stellantis[b2bKey];
                 }
             }
-            state.aporteStellantisVal = defaultStellantisNeto;
+            state[type + '_aporteStellantisVal'] = defaultStellantisNeto;
 
-            // Bono Red
-            const topes = getTopes(car);
-            const defaultBonoRedPct = state.tipoVenta === 'retail' ? ((pagoData.aporte_red_neto || 0) / car.precio_lista_sin_iva * 100) : topes.red;
-            const safePct = state.excepcionTopes ? defaultBonoRedPct : Math.min(defaultBonoRedPct, topes.red);
-            const defaultBonoRedNeto = car.precio_lista_sin_iva * (safePct / 100);
-            state.bonoRedVal = defaultBonoRedNeto;
+            let topesRed = 0;
+            if (type === 'retail') {
+                topesRed = 2.5;
+            } else {
+                const b2bKey = getB2bKey(state.tramoB2b);
+                topesRed = (car.b2b && car.b2b.red && car.b2b.red[b2bKey]) ? car.b2b.red[b2bKey] * 100 : 0;
+            }
+            
+            const defaultBonoRedPct = type === 'retail' ? ((pagoData.aporte_red_neto || 0) / car.precio_lista_sin_iva * 100) : topesRed;
+            const safePct = state.excepcionTopes ? defaultBonoRedPct : Math.min(defaultBonoRedPct, topesRed);
+            state[type + '_bonoRedVal'] = car.precio_lista_sin_iva * (safePct / 100);
 
-            // Aporte FI
-            state.aporteFiVal = (pagoData.aporte_fi_neto || 0);
+            state[type + '_aporteFiVal'] = (pagoData.aporte_fi_neto || 0);
+            state[type + '_accesoriosVal'] = 0;
+        };
 
-            // Accesorios
-            state.accesoriosVal = 0;
-
-            renderTripleInputs();
+        const loadDefaults = () => {
+            loadDefaultsForType('retail');
+            loadDefaultsForType('comercial');
+            renderTripleInputs(true);
         };
 
         const toggleInputsDisable = (disabled) => {
@@ -1009,6 +1023,7 @@
             }
             updateLabels();
             if (state.modelo) {
+                renderTripleInputs(true);
                 calculate();
             }
         };
@@ -1092,14 +1107,14 @@
             
             if(elNeto) elNeto.addEventListener('input', (e) => {
                 applyMask(e.target);
-                state[stateKey] = parseMoney(e.target.value);
+                state[state.tipoVenta + '_' + stateKey] = parseMoney(e.target.value);
                 renderTripleInputs();
                 calculate();
             });
 
             if(elBruto) elBruto.addEventListener('input', (e) => {
                 applyMask(e.target);
-                state[stateKey] = parseMoney(e.target.value) / 1.19;
+                state[state.tipoVenta + '_' + stateKey] = parseMoney(e.target.value) / 1.19;
                 renderTripleInputs();
                 calculate();
             });
@@ -1110,7 +1125,7 @@
                     const car = autos_db.find(a => a.id === state.modelo);
                     const pctStr = e.target.value.replace(',', '.');
                     const pct = parseFloat(pctStr) || 0;
-                    state[stateKey] = car.precio_lista_sin_iva * (pct / 100);
+                    state[state.tipoVenta + '_' + stateKey] = car.precio_lista_sin_iva * (pct / 100);
                     renderTripleInputs();
                     calculate();
                 });
@@ -1143,10 +1158,14 @@
             state.marca = null;
             state.modelo = null;
             state.medioPago = 'contado';
-            state.bonoRedVal = 0;
-            state.aporteStellantisVal = 0;
-            state.aporteFiVal = 0;
-            state.accesoriosVal = 0;
+            state.retail_bonoRedVal = 0;
+            state.retail_aporteStellantisVal = 0;
+            state.retail_aporteFiVal = 0;
+            state.retail_accesoriosVal = 0;
+            state.comercial_bonoRedVal = 0;
+            state.comercial_aporteStellantisVal = 0;
+            state.comercial_aporteFiVal = 0;
+            state.comercial_accesoriosVal = 0;
 
             updateLabels();
             
