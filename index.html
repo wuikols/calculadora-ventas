@@ -773,28 +773,18 @@
         };
 
         const calculateSimulation = (car, typeVenta, tramo) => {
-            // Simulador interno para caja comparativa
+            // Simulador basado en la configuración actual del usuario en la pestaña
             const precioListaNeto = car.precio_lista_sin_iva;
-            const pagoData = car.medios_pago[state.medioPago] || car.medios_pago['contado'];
 
-            let aporteStellantisNeto = 0;
-            let bonoRedNeto = 0;
-
-            if (typeVenta === 'retail') {
-                aporteStellantisNeto = pagoData.aporte_stellantis_neto || 0;
-                bonoRedNeto = precioListaNeto * 0.025; // max 2.5%
-            } else {
-                const b2bKey = getB2bKey(tramo);
-                aporteStellantisNeto = (car.b2b && car.b2b.stellantis && car.b2b.stellantis[b2bKey]) ? (precioListaNeto * car.b2b.stellantis[b2bKey]) : 0;
-                const b2bRedTope = (car.b2b && car.b2b.red && car.b2b.red[b2bKey]) ? car.b2b.red[b2bKey] : 0;
-                bonoRedNeto = precioListaNeto * b2bRedTope;
-            }
-
-            const aporteFiNeto = pagoData.aporte_fi_neto || 0;
+            const bonoRedNeto = state[`${typeVenta}_bonoRedVal`] || 0;
+            const aporteStellantisNeto = state[`${typeVenta}_aporteStellantisVal`] || 0;
+            const aporteFiNeto = state[`${typeVenta}_aporteFiVal`] || 0;
+            const accesoriosNeto = state[`${typeVenta}_accesoriosVal`] || 0;
             
             const margenCompraPct = car.margen_compra_pct || 0.10;
             const margenCompraNeto = precioListaNeto * margenCompraPct;
-            const utilidadNeto = margenCompraNeto - bonoRedNeto; // Accesorios 0 en simulación
+            
+            const utilidadNeto = margenCompraNeto - bonoRedNeto - accesoriosNeto;
             const utilidadPct = (utilidadNeto / precioListaNeto) * 100;
 
             const descuentoTotalNeto = bonoRedNeto + aporteStellantisNeto + aporteFiNeto;
