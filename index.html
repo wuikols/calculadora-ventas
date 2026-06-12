@@ -809,8 +809,9 @@
 
             let best = null;
             const valid = [];
-            if (simRetail.utilidadPct >= 3) valid.push(simRetail);
-            if (simComercial.utilidadPct >= 3) valid.push(simComercial);
+            // Usamos un pequeño margen para evitar problemas de precisión de punto flotante (ej. 2.99999998)
+            if (simRetail.utilidadPct >= state.umbralRojo - 0.001) valid.push(simRetail);
+            if (simComercial.utilidadPct >= state.umbralRojo - 0.001) valid.push(simComercial);
 
             if (valid.length > 0) {
                 best = valid.reduce((prev, curr) => (curr.precioBruto < prev.precioBruto) ? curr : prev);
