@@ -65,6 +65,9 @@
                 position: relative !important;
                 top: 0 !important;
             }
+            .section {
+                padding: 1.5rem;
+            }
         }
 
         .section {
@@ -459,14 +462,14 @@
                 <div class="form-group">
                     <label for="inputUmbralRojo">Umbral de Alerta (Rojo) %</label>
                     <div class="input-wrapper pct-wrapper">
-                        <input type="number" id="inputUmbralRojo" step="0.1" value="3">
+                        <input type="number" id="inputUmbralRojo" step="0.1" value="3" inputmode="decimal">
                         <span class="input-icon">%</span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputUmbralVerde">Umbral Óptimo (Verde) %</label>
                     <div class="input-wrapper pct-wrapper">
-                        <input type="number" id="inputUmbralVerde" step="0.1" value="6">
+                        <input type="number" id="inputUmbralVerde" step="0.1" value="6" inputmode="decimal">
                         <span class="input-icon">%</span>
                     </div>
                 </div>
@@ -547,14 +550,14 @@
                 <div class="form-row">
                     <div class="input-wrapper" style="flex: 1.5;" title="Neto (Sin IVA)">
                         <span class="input-icon">$</span>
-                        <input type="text" id="aporteStellantisNeto" value="0" disabled placeholder="Neto">
+                        <input type="text" id="aporteStellantisNeto" value="0" disabled placeholder="Neto" inputmode="numeric">
                     </div>
                     <div class="input-wrapper" style="flex: 1.5;" title="Bruto (Con IVA)">
                         <span class="input-icon">$</span>
-                        <input type="text" id="aporteStellantisBruto" value="0" disabled placeholder="Bruto">
+                        <input type="text" id="aporteStellantisBruto" value="0" disabled placeholder="Bruto" inputmode="numeric">
                     </div>
                     <div class="input-wrapper pct-wrapper" style="flex: 1;">
-                        <input type="text" id="aporteStellantisPct" value="0" disabled placeholder="%">
+                        <input type="text" id="aporteStellantisPct" value="0" disabled placeholder="%" inputmode="decimal">
                         <span class="input-icon">%</span>
                     </div>
                 </div>
@@ -570,14 +573,14 @@
                 <div class="form-row">
                     <div class="input-wrapper" style="flex: 1.5;" title="Neto (Sin IVA)">
                         <span class="input-icon">$</span>
-                        <input type="text" id="bonoRedNeto" value="0" disabled placeholder="Neto">
+                        <input type="text" id="bonoRedNeto" value="0" disabled placeholder="Neto" inputmode="numeric">
                     </div>
                     <div class="input-wrapper" style="flex: 1.5;" title="Bruto (Con IVA)">
                         <span class="input-icon">$</span>
-                        <input type="text" id="bonoRedBruto" value="0" disabled placeholder="Bruto">
+                        <input type="text" id="bonoRedBruto" value="0" disabled placeholder="Bruto" inputmode="numeric">
                     </div>
                     <div class="input-wrapper pct-wrapper" style="flex: 1;">
-                        <input type="text" id="bonoRedPct" value="0" disabled placeholder="%">
+                        <input type="text" id="bonoRedPct" value="0" disabled placeholder="%" inputmode="decimal">
                         <span class="input-icon">%</span>
                     </div>
                 </div>
@@ -592,11 +595,11 @@
                 <div class="form-row">
                     <div class="input-wrapper" style="flex: 1.5;" title="Neto (Sin IVA)">
                         <span class="input-icon">$</span>
-                        <input type="text" id="aporteFiNeto" value="0" disabled placeholder="Neto">
+                        <input type="text" id="aporteFiNeto" value="0" disabled placeholder="Neto" inputmode="numeric">
                     </div>
                     <div class="input-wrapper" style="flex: 1.5;" title="Bruto (Con IVA)">
                         <span class="input-icon">$</span>
-                        <input type="text" id="aporteFiBruto" value="0" disabled placeholder="Bruto">
+                        <input type="text" id="aporteFiBruto" value="0" disabled placeholder="Bruto" inputmode="numeric">
                     </div>
                 </div>
             </div>
@@ -610,11 +613,11 @@
                 <div class="form-row">
                     <div class="input-wrapper" style="flex: 1.5;" title="Neto (Sin IVA)">
                         <span class="input-icon">$</span>
-                        <input type="text" id="accesoriosNeto" value="0" disabled placeholder="Neto">
+                        <input type="text" id="accesoriosNeto" value="0" disabled placeholder="Neto" inputmode="numeric">
                     </div>
                     <div class="input-wrapper" style="flex: 1.5;" title="Bruto (Con IVA)">
                         <span class="input-icon">$</span>
-                        <input type="text" id="accesoriosBruto" value="0" disabled placeholder="Bruto">
+                        <input type="text" id="accesoriosBruto" value="0" disabled placeholder="Bruto" inputmode="numeric">
                     </div>
                 </div>
             </div>
@@ -763,6 +766,7 @@
         const getB2bKey = (tramo) => tramo === 'gc' ? 'gc' : `${state.tipoConcesionario}_${tramo}`;
 
         const getTopes = (car) => {
+            if (!car) return { red: 0 };
             if (state.tipoVenta === 'retail') {
                 return { red: 2.5 };
             } else {
@@ -773,6 +777,7 @@
         };
 
         const calculateSimulation = (car, typeVenta, tramo) => {
+            if (!car) return { type: typeVenta, precioBruto: 0, utilidadPct: 0 };
             // Simulador basado en la configuración actual del usuario en la pestaña
             const precioListaNeto = car.precio_lista_sin_iva;
 
@@ -804,6 +809,7 @@
                 return;
             }
             const car = autos_db.find(a => a.id === state.modelo);
+            if (!car) return;
             const simRetail = calculateSimulation(car, 'retail', state.tramoB2b);
             const simComercial = calculateSimulation(car, 'comercial', state.tramoB2b);
 
@@ -829,6 +835,7 @@
         const renderTripleInputs = (force = false) => {
             if (!state.modelo) return;
             const car = autos_db.find(a => a.id === state.modelo);
+            if (!car) return;
             const pNeto = car.precio_lista_sin_iva;
 
             const bonoRed = state[state.tipoVenta + '_bonoRedVal'] || 0;
@@ -859,6 +866,7 @@
             if (!state.modelo) return;
 
             const car = autos_db.find(a => a.id === state.modelo);
+            if (!car) return;
 
             // 1. Base Prices
             const precioListaNeto = car.precio_lista_sin_iva;
@@ -1114,8 +1122,14 @@
                 elPct.addEventListener('input', (e) => {
                     if (!state.modelo) return;
                     const car = autos_db.find(a => a.id === state.modelo);
-                    const pctStr = e.target.value.replace(',', '.');
-                    const pct = parseFloat(pctStr) || 0;
+                    if (!car) return;
+                    const pctStr = e.target.value.replace(/[^0-9,.]/g, '').replace(',', '.');
+                    let pct = parseFloat(pctStr) || 0;
+                    if (pct < 0) pct = 0;
+                    if (pct > 100) {
+                        pct = 100;
+                        e.target.value = '100';
+                    }
                     state[state.tipoVenta + '_' + stateKey] = car.precio_lista_sin_iva * (pct / 100);
                     renderTripleInputs();
                     calculate();

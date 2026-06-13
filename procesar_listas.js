@@ -42,6 +42,104 @@ function cleanMoney(val) {
     return isNaN(num) ? 0 : Math.round(num);
 }
 
+function findColumnIndices(lines) {
+    let headerRowIndex = -1;
+    for (let i = 0; i < Math.min(lines.length, 15); i++) {
+        const row = lines[i];
+        if (row && row.some(c => c && (String(c).toUpperCase().includes('TODO MEDIO DE PAGO') || String(c).toUpperCase().includes('PRECIO LISTA')))) {
+            headerRowIndex = i;
+            break;
+        }
+    }
+    
+    if (headerRowIndex === -1) return null;
+    
+    const headerRow = lines[headerRowIndex];
+    const subHeaderRow = lines[headerRowIndex + 1] || [];
+    
+    // Find section offsets
+    let idxTmp = -1;
+    let idxCc = -1;
+    let idxCi = -1;
+    
+    for (let j = 0; j < headerRow.length; j++) {
+        const val = String(headerRow[j] || '').toUpperCase();
+        if (val.includes('TODO MEDIO DE PAGO') || val.includes('TODO MEDIO')) {
+            idxTmp = j;
+        } else if (val.includes('CONVENCIONAL') || val.includes('CREDITO CONVENCIONAL')) {
+            idxCc = j;
+        } else if (val.includes('INTELIGENTE') || val.includes('COMPRA INTELIGENTE')) {
+            idxCi = j;
+        }
+    }
+    
+    const isComerciales = lines.some(row => row && row.some(c => c && String(c).toUpperCase().includes('VEHÍCULOS COMERCIALES')));
+    
+    // Default indices fallback
+    const indices = {
+        headerRowIndex: headerRowIndex,
+        con_iva: 6,
+        sin_iva: 7,
+        tmp_red: isComerciales ? 11 : 10,
+        tmp_stellantis: isComerciales ? 12 : 11,
+        cc_red: isComerciales ? 18 : 15,
+        cc_stellantis: isComerciales ? 19 : 16,
+        cc_fi: isComerciales ? 20 : 17,
+        ci_red: isComerciales ? 26 : 21,
+        ci_stellantis: isComerciales ? 27 : 22,
+        ci_fi: isComerciales ? 28 : 23
+    };
+    
+    // Find con_iva / sin_iva in the subHeaderRow
+    for (let j = 5; j <= 9; j++) {
+        const val = String(subHeaderRow[j] || '').toUpperCase();
+        if (val.includes('CON IVA')) indices.con_iva = j;
+        else if (val.includes('SIN IVA')) indices.sin_iva = j;
+    }
+    
+    // Helper to scan for header keywords within a section
+    const findSubHeader = (startIdx, endIdx, keywords) => {
+        for (let j = startIdx; j < endIdx; j++) {
+            const val = String(subHeaderRow[j] || '').toUpperCase();
+            if (keywords.some(kw => val.includes(kw))) {
+                return j;
+            }
+        }
+        return -1;
+    };
+    
+    // Map dynamically based on headers
+    if (idxTmp !== -1) {
+        const end = idxCc !== -1 ? idxCc : (idxTmp + 7);
+        const r = findSubHeader(idxTmp, end, ['APORTE RED', 'APORTE CE', 'APORTE CONCESIONARIO']);
+        if (r !== -1) indices.tmp_red = r;
+        const s = findSubHeader(idxTmp, end, ['APORTE STELLANTIS', 'STELLANTIS']);
+        if (s !== -1) indices.tmp_stellantis = s;
+    }
+    
+    if (idxCc !== -1) {
+        const end = idxCi !== -1 ? idxCi : (idxCc + 7);
+        const r = findSubHeader(idxCc, end, ['APORTE RED', 'APORTE CE', 'APORTE CONCESIONARIO']);
+        if (r !== -1) indices.cc_red = r;
+        const s = findSubHeader(idxCc, end, ['APORTE STELLANTIS', 'STELLANTIS']);
+        if (s !== -1) indices.cc_stellantis = s;
+        const f = findSubHeader(idxCc, end, ['APORTE FINANCIERA', 'FINANCIERA']);
+        if (f !== -1) indices.cc_fi = f;
+    }
+    
+    if (idxCi !== -1) {
+        const end = idxCi + 8;
+        const r = findSubHeader(idxCi, end, ['APORTE RED', 'APORTE CE', 'APORTE CONCESIONARIO']);
+        if (r !== -1) indices.ci_red = r;
+        const s = findSubHeader(idxCi, end, ['APORTE STELLANTIS', 'STELLANTIS']);
+        if (s !== -1) indices.ci_stellantis = s;
+        const f = findSubHeader(idxCi, end, ['APORTE FINANCIERA', 'FINANCIERA']);
+        if (f !== -1) indices.ci_fi = f;
+    }
+    
+    return indices;
+}
+
 function processFiles() {
     const db = [];
     const allFiles = fs.readdirSync(__dirname);
@@ -98,7 +196,11 @@ function processFiles() {
 
             const isComerciales = sheetName.toUpperCase().includes('COMERCIALES');
 
-            lines.forEach(row => {
+            const indices = findColumnIndices(lines);
+            if (!indices) return;
+
+            lines.forEach((row, rowIndex) => {
+                if (rowIndex <= indices.headerRowIndex + 1) return;
                 if (!row || row.length < 25) return;
 
                 const name = String(row[0] || '').trim();
@@ -110,29 +212,13 @@ function processFiles() {
                     return;
                 }
 
-                const precioConIva = cleanMoney(row[6]);
-                const precioSinIva = cleanMoney(row[7]);
+                const precioConIva = cleanMoney(row[indices.con_iva]);
+                const precioSinIva = cleanMoney(row[indices.sin_iva]);
 
                 if (precioConIva === 0 || precioSinIva === 0) return;
 
-                let indices = {
-                    tmp_red: 10, tmp_stellantis: 11,
-                    cc_red: 15, cc_stellantis: 16, cc_fi: 17,
-                    ci_red: 21, ci_stellantis: 22, ci_fi: 23
-                };
-
-                if (isComerciales) {
-                    indices = {
-                        tmp_red: 11, tmp_stellantis: 12,
-                        cc_red: 18, cc_stellantis: 19, cc_fi: 20,
-                        ci_red: 26, ci_stellantis: 27, ci_fi: 28
-                    };
-                }
-
-                // Si es Comerciales, los aportes ya vienen SIN IVA (Netos). Si es Pasajeros, vienen CON IVA y hay que dividirlos por 1.19
                 const factor = isComerciales ? 1.0 : 1.19;
 
-                // Find matching B2B entry
                 const cleanCar = cleanString(name);
                 const candidates = b2bEntries.filter(b => b.brand === marca.toUpperCase());
                 
