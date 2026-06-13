@@ -3,7 +3,7 @@ const autos_db = [
         "id": "citroën-c3-puretech-82-live-pack-pasajeros",
         "marca": "Citroën",
         "modelo": "C3 Live Pack Gasolina 82HP MT (PASAJEROS)",
-        "precio_lista_sin_iva": 10831932773109244,
+        "precio_lista_sin_iva": 10831933,
         "margen_compra_pct": 0.1,
         "b2b": {
             "stellantis": {
@@ -43,9 +43,24 @@ const autos_db = [
         "id": "citroën-c3-live-pack-gasolina-96hp-mt-pasajeros",
         "marca": "Citroën",
         "modelo": "C3 Live Pack Gasolina 96HP MT (PASAJEROS)",
-        "precio_lista_sin_iva": 10831932773109244,
+        "precio_lista_sin_iva": 10831933,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.095,
+                "prof_t2": 0.13,
+                "noprof_t1": 0.085,
+                "noprof_t2": 0.12,
+                "gc": 0.18
+            },
+            "red": {
+                "prof_t1": 0.045000000000000005,
+                "prof_t2": 0.05,
+                "noprof_t1": 0.05500000000000001,
+                "noprof_t2": 0.060000000000000005,
+                "gc": 0.08
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 1073739.4957983193,
@@ -68,9 +83,24 @@ const autos_db = [
         "id": "citroën-c3-puretech-82-feel-pasajeros",
         "marca": "Citroën",
         "modelo": "C3 Feel Gasolina 82HP MT (PASAJEROS)",
-        "precio_lista_sin_iva": 1150420168067227,
+        "precio_lista_sin_iva": 11504202,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.035,
+                "prof_t2": 0.045000000000000005,
+                "noprof_t1": 0.025,
+                "noprof_t2": 0.035,
+                "gc": 0.04000000000000001
+            },
+            "red": {
+                "prof_t1": 0.024999999999999994,
+                "prof_t2": 0.034999999999999996,
+                "noprof_t1": 0.034999999999999996,
+                "noprof_t2": 0.045,
+                "gc": 0.06
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 972899.1596638656,
@@ -93,9 +123,24 @@ const autos_db = [
         "id": "citroën-c3-feel-gasolina-96hp-mt-pasajeros",
         "marca": "Citroën",
         "modelo": "C3 Feel Gasolina 96HP MT (PASAJEROS)",
-        "precio_lista_sin_iva": 1150420168067227,
+        "precio_lista_sin_iva": 11504202,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.095,
+                "prof_t2": 0.13,
+                "noprof_t1": 0.085,
+                "noprof_t2": 0.12,
+                "gc": 0.18
+            },
+            "red": {
+                "prof_t1": 0.045000000000000005,
+                "prof_t2": 0.05,
+                "noprof_t1": 0.05500000000000001,
+                "noprof_t2": 0.060000000000000005,
+                "gc": 0.08
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 972899.1596638656,
@@ -118,9 +163,24 @@ const autos_db = [
         "id": "citroën-c3-turbo-125-cvt-you-pasajeros",
         "marca": "Citroën",
         "modelo": "C3 YOU Turbo 125HP AT (PASAJEROS)",
-        "precio_lista_sin_iva": 13941176470588236,
+        "precio_lista_sin_iva": 13941176,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.035,
+                "prof_t2": 0.045000000000000005,
+                "noprof_t1": 0.025,
+                "noprof_t2": 0.035,
+                "gc": 0.04000000000000001
+            },
+            "red": {
+                "prof_t1": 0.024999999999999994,
+                "prof_t2": 0.034999999999999996,
+                "noprof_t1": 0.034999999999999996,
+                "noprof_t2": 0.045,
+                "gc": 0.06
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 407773.1092436975,
@@ -143,9 +203,24 @@ const autos_db = [
         "id": "citroën-basalt-turbo-125-cvt-shine-pasajeros",
         "marca": "Citroën",
         "modelo": "Basalt Shine Turbo 125HP AT (PASAJEROS)",
-        "precio_lista_sin_iva": 13184873949579832,
+        "precio_lista_sin_iva": 13184874,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.035,
+                "prof_t2": 0.045000000000000005,
+                "noprof_t1": 0.025,
+                "noprof_t2": 0.035,
+                "gc": 0.04000000000000001
+            },
+            "red": {
+                "prof_t1": 0.024999999999999994,
+                "prof_t2": 0.034999999999999996,
+                "noprof_t1": 0.034999999999999996,
+                "noprof_t2": 0.045,
+                "gc": 0.06
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 294117.64705882355,
@@ -168,7 +243,7 @@ const autos_db = [
         "id": "citroën-c4-mca-hybrid-136-edct6-plus-pasajeros",
         "marca": "Citroën",
         "modelo": "C4 Plus Hybrid 136HP AT (PASAJEROS)",
-        "precio_lista_sin_iva": 2066386554621849,
+        "precio_lista_sin_iva": 20663866,
         "margen_compra_pct": 0.1,
         "b2b": {
             "stellantis": {
@@ -208,9 +283,24 @@ const autos_db = [
         "id": "citroën-c4-mca-hybrid-136-edct6-max-pasajeros",
         "marca": "Citroën",
         "modelo": "C4 Max Hybrid 136HP AT (PASAJEROS)",
-        "precio_lista_sin_iva": 2234453781512605,
+        "precio_lista_sin_iva": 22344538,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.035,
+                "prof_t2": 0.045000000000000005,
+                "noprof_t1": 0.025,
+                "noprof_t2": 0.035,
+                "gc": 0.04000000000000001
+            },
+            "red": {
+                "prof_t1": 0.024999999999999994,
+                "prof_t2": 0.034999999999999996,
+                "noprof_t1": 0.034999999999999996,
+                "noprof_t2": 0.045,
+                "gc": 0.06
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 1206092.43697479,
@@ -233,7 +323,7 @@ const autos_db = [
         "id": "citroën-c3-aircross-vti-115-feel-pack-5p-pasajeros",
         "marca": "Citroën",
         "modelo": "C3 Aircross Feel Pack 5P Gasolina 115HP MT (PASAJEROS)",
-        "precio_lista_sin_iva": 13605042016806724,
+        "precio_lista_sin_iva": 13605042,
         "margen_compra_pct": 0.1,
         "b2b": {
             "stellantis": {
@@ -273,9 +363,24 @@ const autos_db = [
         "id": "citroën-c3-aircross-vti-115-feel-pack-7p-pasajeros",
         "marca": "Citroën",
         "modelo": "C3 Aircross Feel Pack 7P Gasolina 115HP MT (PASAJEROS)",
-        "precio_lista_sin_iva": 14529411764705884,
+        "precio_lista_sin_iva": 14529412,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.035,
+                "prof_t2": 0.045000000000000005,
+                "noprof_t1": 0.025,
+                "noprof_t2": 0.035,
+                "gc": 0.04000000000000001
+            },
+            "red": {
+                "prof_t1": 0.024999999999999994,
+                "prof_t2": 0.034999999999999996,
+                "noprof_t1": 0.034999999999999996,
+                "noprof_t2": 0.045,
+                "gc": 0.06
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 897268.9075630252,
@@ -298,9 +403,24 @@ const autos_db = [
         "id": "citroën-c3-aircross-vti-115-shine-5p-pasajeros",
         "marca": "Citroën",
         "modelo": "C3 Aircross Shine 5P Gasolina 115HP MT (PASAJEROS)",
-        "precio_lista_sin_iva": 14109243697478992,
+        "precio_lista_sin_iva": 14109244,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.035,
+                "prof_t2": 0.045000000000000005,
+                "noprof_t1": 0.025,
+                "noprof_t2": 0.035,
+                "gc": 0.04000000000000001
+            },
+            "red": {
+                "prof_t1": 0.024999999999999994,
+                "prof_t2": 0.034999999999999996,
+                "noprof_t1": 0.034999999999999996,
+                "noprof_t2": 0.045,
+                "gc": 0.06
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 1159873.949579832,
@@ -323,9 +443,24 @@ const autos_db = [
         "id": "citroën-c3-aircross-turbo-125-cvt-shine-5p-pasajeros",
         "marca": "Citroën",
         "modelo": "C3 Aircross Shine 5P Turbo 125HP AT (PASAJEROS)",
-        "precio_lista_sin_iva": 16294117647058824,
+        "precio_lista_sin_iva": 16294118,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.035,
+                "prof_t2": 0.045000000000000005,
+                "noprof_t1": 0.025,
+                "noprof_t2": 0.035,
+                "gc": 0.04000000000000001
+            },
+            "red": {
+                "prof_t1": 0.024999999999999994,
+                "prof_t2": 0.034999999999999996,
+                "noprof_t1": 0.034999999999999996,
+                "noprof_t2": 0.045,
+                "gc": 0.06
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 1021218.487394958,
@@ -348,9 +483,24 @@ const autos_db = [
         "id": "citroën-c3-aircross-turbo-125-cvt-shine-7p-pasajeros",
         "marca": "Citroën",
         "modelo": "C3 Aircross Shine 7P Turbo 125HP AT (PASAJEROS)",
-        "precio_lista_sin_iva": 17218487394957986,
+        "precio_lista_sin_iva": 17218487,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.035,
+                "prof_t2": 0.045000000000000005,
+                "noprof_t1": 0.025,
+                "noprof_t2": 0.035,
+                "gc": 0.04000000000000001
+            },
+            "red": {
+                "prof_t1": 0.024999999999999994,
+                "prof_t2": 0.034999999999999996,
+                "noprof_t1": 0.034999999999999996,
+                "noprof_t2": 0.045,
+                "gc": 0.06
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 998109.243697479,
@@ -373,7 +523,7 @@ const autos_db = [
         "id": "citroën-berlingo-mca-multispace-xl-bluehdi-100-feel-pasajeros",
         "marca": "Citroën",
         "modelo": "Berlingo Multispace MCA Plus XL Diesel 100HP MT (PASAJEROS)",
-        "precio_lista_sin_iva": 19403361344537816,
+        "precio_lista_sin_iva": 19403361,
         "margen_compra_pct": 0.1,
         "b2b": {
             "stellantis": {
@@ -413,9 +563,24 @@ const autos_db = [
         "id": "citroën-berlingo-mca-multispace-xl-bluehdi-130-eat8-feel-pasajeros",
         "marca": "Citroën",
         "modelo": "Berlingo Multispace MCA Plus XL Diesel 130HP AT (PASAJEROS)",
-        "precio_lista_sin_iva": 2108403361344538,
+        "precio_lista_sin_iva": 21084034,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.095,
+                "prof_t2": 0.13,
+                "noprof_t1": 0.085,
+                "noprof_t2": 0.12,
+                "gc": 0.18
+            },
+            "red": {
+                "prof_t1": 0.045000000000000005,
+                "prof_t2": 0.05,
+                "noprof_t1": 0.05500000000000001,
+                "noprof_t2": 0.060000000000000005,
+                "gc": 0.08
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 1237605.0420168068,
@@ -600,7 +765,22 @@ const autos_db = [
         "modelo": "Spacetourer MCA 9P Diesel 180HP AT (COMERCIALES)",
         "precio_lista_sin_iva": 30890000,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.09000000000000001,
+                "prof_t2": 0.09000000000000001,
+                "noprof_t1": 0.08000000000000002,
+                "noprof_t2": 0.08000000000000002,
+                "gc": 0.1
+            },
+            "red": {
+                "prof_t1": 0.05,
+                "prof_t2": 0.05,
+                "noprof_t1": 0.060000000000000005,
+                "noprof_t2": 0.060000000000000005,
+                "gc": 0.060000000000000005
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 3427750,
@@ -665,7 +845,22 @@ const autos_db = [
         "modelo": "Jumper MCA L3H2 Diesel 140HP MT (COMERCIALES)",
         "precio_lista_sin_iva": 31890000,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.10999999999999999,
+                "prof_t2": 0.12000000000000001,
+                "noprof_t1": 0.09999999999999998,
+                "noprof_t2": 0.11000000000000001,
+                "gc": 0.145
+            },
+            "red": {
+                "prof_t1": 0.04000000000000001,
+                "prof_t2": 0.05,
+                "noprof_t1": 0.05000000000000001,
+                "noprof_t2": 0.060000000000000005,
+                "gc": 0.065
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 3602750,
@@ -690,7 +885,22 @@ const autos_db = [
         "modelo": "Jumper MCA L4H2 Diesel 140HP MT (COMERCIALES)",
         "precio_lista_sin_iva": 32890000,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.10999999999999999,
+                "prof_t2": 0.12000000000000001,
+                "noprof_t1": 0.09999999999999998,
+                "noprof_t2": 0.11000000000000001,
+                "gc": 0.145
+            },
+            "red": {
+                "prof_t1": 0.04000000000000001,
+                "prof_t2": 0.05,
+                "noprof_t1": 0.05000000000000001,
+                "noprof_t2": 0.060000000000000005,
+                "gc": 0.065
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 2977750,
@@ -753,7 +963,7 @@ const autos_db = [
         "id": "leapmotor-c10-bev-lista de precios",
         "marca": "Leapmotor",
         "modelo": "C10 BEV DESIGN (Lista de Precios)",
-        "precio_lista_sin_iva": 24781512605042016,
+        "precio_lista_sin_iva": 24781513,
         "margen_compra_pct": 0.1,
         "b2b": {
             "stellantis": {
@@ -793,7 +1003,7 @@ const autos_db = [
         "id": "leapmotor-c10-reev-lista de precios",
         "marca": "Leapmotor",
         "modelo": "C10 REEV DESIGN (Lista de Precios)",
-        "precio_lista_sin_iva": 2604201680672269,
+        "precio_lista_sin_iva": 26042017,
         "margen_compra_pct": 0.1,
         "b2b": {
             "stellantis": {
@@ -833,7 +1043,7 @@ const autos_db = [
         "id": "opel-new-corsa-mca-edition-1.2-mt6-pasajeros",
         "marca": "Opel",
         "modelo": "Corsa Edition Gasolina 100HP MT (PASAJEROS)",
-        "precio_lista_sin_iva": 1461344537815126,
+        "precio_lista_sin_iva": 14613445,
         "margen_compra_pct": 0.1,
         "b2b": {
             "stellantis": {
@@ -873,9 +1083,24 @@ const autos_db = [
         "id": "opel-new-corsa-mca-edition-1.2t-at8-pasajeros",
         "marca": "Opel",
         "modelo": "Corsa Edition Gasolina 100HP AT (PASAJEROS)",
-        "precio_lista_sin_iva": 15705882352941178,
+        "precio_lista_sin_iva": 15705882,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.03500000000000001,
+                "prof_t2": 0.04499999999999999,
+                "noprof_t1": 0.02500000000000001,
+                "noprof_t2": 0.03499999999999999,
+                "gc": 0.049999999999999996
+            },
+            "red": {
+                "prof_t1": 0.024999999999999994,
+                "prof_t2": 0.034999999999999996,
+                "noprof_t1": 0.034999999999999996,
+                "noprof_t2": 0.045,
+                "gc": 0.049999999999999996
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 699789.9159663866,
@@ -898,9 +1123,24 @@ const autos_db = [
         "id": "opel-new-corsa-mca-gs-1.2t-at8-pasajeros",
         "marca": "Opel",
         "modelo": "Corsa GS Gasolina 100HP AT (PASAJEROS)",
-        "precio_lista_sin_iva": 17218487394957986,
+        "precio_lista_sin_iva": 17218487,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.03500000000000001,
+                "prof_t2": 0.04499999999999999,
+                "noprof_t1": 0.02500000000000001,
+                "noprof_t2": 0.03499999999999999,
+                "gc": 0.049999999999999996
+            },
+            "red": {
+                "prof_t1": 0.024999999999999994,
+                "prof_t2": 0.034999999999999996,
+                "noprof_t1": 0.034999999999999996,
+                "noprof_t2": 0.045,
+                "gc": 0.049999999999999996
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 661974.7899159665,
@@ -923,7 +1163,7 @@ const autos_db = [
         "id": "opel-new-crossland-gs-hybrid-pasajeros",
         "marca": "Opel",
         "modelo": "New Crossland GS 5P Hybrid 136 HP AT (PASAJEROS)",
-        "precio_lista_sin_iva": 18563025210084036,
+        "precio_lista_sin_iva": 18563025,
         "margen_compra_pct": 0.1,
         "b2b": {
             "stellantis": {
@@ -963,9 +1203,24 @@ const autos_db = [
         "id": "opel-new-crossland-gs-hybrid-7p-pasajeros",
         "marca": "Opel",
         "modelo": "New Crossland GS 7P Hybrid 136 HP AT (PASAJEROS)",
-        "precio_lista_sin_iva": 19403361344537816,
+        "precio_lista_sin_iva": 19403361,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.035,
+                "prof_t2": 0.04499999999999999,
+                "noprof_t1": 0.02500000000000001,
+                "noprof_t2": 0.03499999999999999,
+                "gc": 0.049999999999999996
+            },
+            "red": {
+                "prof_t1": 0.024999999999999998,
+                "prof_t2": 0.034999999999999996,
+                "noprof_t1": 0.034999999999999996,
+                "noprof_t2": 0.045,
+                "gc": 0.049999999999999996
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 378151.2605042017,
@@ -988,9 +1243,24 @@ const autos_db = [
         "id": "opel-new-crossland-gs-eletric-pasajeros",
         "marca": "Opel",
         "modelo": "New Crossland GS Electric (PASAJEROS)",
-        "precio_lista_sin_iva": 2276470588235294,
+        "precio_lista_sin_iva": 22764706,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.035,
+                "prof_t2": 0.04499999999999999,
+                "noprof_t1": 0.02500000000000001,
+                "noprof_t2": 0.03499999999999999,
+                "gc": 0.049999999999999996
+            },
+            "red": {
+                "prof_t1": 0.024999999999999998,
+                "prof_t2": 0.034999999999999996,
+                "noprof_t1": 0.034999999999999996,
+                "noprof_t2": 0.045,
+                "gc": 0.049999999999999996
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 2876260.504201681,
@@ -1013,9 +1283,24 @@ const autos_db = [
         "id": "opel-mokka-elegance-1.2t-at8-pasajeros",
         "marca": "Opel",
         "modelo": "Mokka Elegance Gasolina 130HP AT (PASAJEROS)",
-        "precio_lista_sin_iva": 1923529411764706,
+        "precio_lista_sin_iva": 19235294,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.035,
+                "prof_t2": 0.04499999999999999,
+                "noprof_t1": 0.02500000000000001,
+                "noprof_t2": 0.03499999999999999,
+                "gc": 0.049999999999999996
+            },
+            "red": {
+                "prof_t1": 0.024999999999999998,
+                "prof_t2": 0.034999999999999996,
+                "noprof_t1": 0.034999999999999996,
+                "noprof_t2": 0.045,
+                "gc": 0.049999999999999996
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 2040126.050420168,
@@ -1038,9 +1323,24 @@ const autos_db = [
         "id": "opel-mokka-gs-1.2t-at8-pasajeros",
         "marca": "Opel",
         "modelo": "Mokka GS Gasolina 130HP AT (PASAJEROS)",
-        "precio_lista_sin_iva": 2091596638655462,
+        "precio_lista_sin_iva": 20915966,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.035,
+                "prof_t2": 0.04499999999999999,
+                "noprof_t1": 0.02500000000000001,
+                "noprof_t2": 0.03499999999999999,
+                "gc": 0.049999999999999996
+            },
+            "red": {
+                "prof_t1": 0.024999999999999998,
+                "prof_t2": 0.034999999999999996,
+                "noprof_t1": 0.034999999999999996,
+                "noprof_t2": 0.045,
+                "gc": 0.049999999999999996
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 1998109.2436974791,
@@ -1063,7 +1363,7 @@ const autos_db = [
         "id": "opel-mokka-mca-edition-1.2t-mt6-pasajeros",
         "marca": "Opel",
         "modelo": "Mokka MCA Edition Plus Gasolina 130HP MT (PASAJEROS)",
-        "precio_lista_sin_iva": 1822689075630252,
+        "precio_lista_sin_iva": 18226891,
         "margen_compra_pct": 0.1,
         "b2b": {
             "stellantis": {
@@ -1103,9 +1403,24 @@ const autos_db = [
         "id": "opel-mokka-mca-edition-1.2t-at8-pasajeros",
         "marca": "Opel",
         "modelo": "Mokka MCA Edition Gasolina 130HP AT (PASAJEROS)",
-        "precio_lista_sin_iva": 1822689075630252,
+        "precio_lista_sin_iva": 18226891,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.035,
+                "prof_t2": 0.04499999999999999,
+                "noprof_t1": 0.02500000000000001,
+                "noprof_t2": 0.03499999999999999,
+                "gc": 0.049999999999999996
+            },
+            "red": {
+                "prof_t1": 0.024999999999999998,
+                "prof_t2": 0.034999999999999996,
+                "noprof_t1": 0.034999999999999996,
+                "noprof_t2": 0.045,
+                "gc": 0.049999999999999996
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 2233403.3613445377,
@@ -1128,9 +1443,24 @@ const autos_db = [
         "id": "opel-mokka-mca-edition-plus-1.2t-at8-pasajeros",
         "marca": "Opel",
         "modelo": "Mokka MCA Edition Plus Gasolina 130HP AT (PASAJEROS)",
-        "precio_lista_sin_iva": 19487394957983196,
+        "precio_lista_sin_iva": 19487395,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.035,
+                "prof_t2": 0.04499999999999999,
+                "noprof_t1": 0.02500000000000001,
+                "noprof_t2": 0.03499999999999999,
+                "gc": 0.049999999999999996
+            },
+            "red": {
+                "prof_t1": 0.024999999999999998,
+                "prof_t2": 0.034999999999999996,
+                "noprof_t1": 0.034999999999999996,
+                "noprof_t2": 0.045,
+                "gc": 0.049999999999999996
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 2958193.2773109246,
@@ -1153,9 +1483,24 @@ const autos_db = [
         "id": "opel-mokka-mca-gs-1.2t-at8-pasajeros",
         "marca": "Opel",
         "modelo": "Mokka MCA GS Plus Gasolina 130HP AT (PASAJEROS)",
-        "precio_lista_sin_iva": 20831932773109250,
+        "precio_lista_sin_iva": 20831933,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.035,
+                "prof_t2": 0.04499999999999999,
+                "noprof_t1": 0.02500000000000001,
+                "noprof_t2": 0.03499999999999999,
+                "gc": 0.049999999999999996
+            },
+            "red": {
+                "prof_t1": 0.024999999999999998,
+                "prof_t2": 0.034999999999999996,
+                "noprof_t1": 0.034999999999999996,
+                "noprof_t2": 0.045,
+                "gc": 0.049999999999999996
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 2252310.924369748,
@@ -1178,9 +1523,24 @@ const autos_db = [
         "id": "opel-grandland-gs-1.2t-mt6-pasajeros",
         "marca": "Opel",
         "modelo": "Grandland GS Gasolina 130HP MT (PASAJEROS)",
-        "precio_lista_sin_iva": 21672268907563028,
+        "precio_lista_sin_iva": 21672269,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.035,
+                "prof_t2": 0.04499999999999999,
+                "noprof_t1": 0.02500000000000001,
+                "noprof_t2": 0.03499999999999999,
+                "gc": 0.049999999999999996
+            },
+            "red": {
+                "prof_t1": 0.024999999999999998,
+                "prof_t2": 0.034999999999999996,
+                "noprof_t1": 0.034999999999999996,
+                "noprof_t2": 0.045,
+                "gc": 0.049999999999999996
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 3827941.1764705884,
@@ -1203,7 +1563,7 @@ const autos_db = [
         "id": "opel-new-grandland-gs-hybrid-pasajeros",
         "marca": "Opel",
         "modelo": "New Grandland GS Hybrid 136HP AT (PASAJEROS)",
-        "precio_lista_sin_iva": 2747058823529412,
+        "precio_lista_sin_iva": 27470588,
         "margen_compra_pct": 0.1,
         "b2b": {
             "stellantis": {
@@ -1243,9 +1603,24 @@ const autos_db = [
         "id": "opel-new-grandland-gs-plus-hybrid-pasajeros",
         "marca": "Opel",
         "modelo": "New Grandland GS Line Hybrid 136HP AT (PASAJEROS)",
-        "precio_lista_sin_iva": 2957142857142857,
+        "precio_lista_sin_iva": 29571429,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.035,
+                "prof_t2": 0.04499999999999999,
+                "noprof_t1": 0.02500000000000001,
+                "noprof_t2": 0.03499999999999999,
+                "gc": 0.049999999999999996
+            },
+            "red": {
+                "prof_t1": 0.024999999999999998,
+                "prof_t2": 0.034999999999999996,
+                "noprof_t1": 0.034999999999999996,
+                "noprof_t2": 0.045,
+                "gc": 0.049999999999999996
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 2369957.9831932774,
@@ -1268,9 +1643,24 @@ const autos_db = [
         "id": "opel-new-grandland-gs-plus-hybrid-pasajeros",
         "marca": "Opel",
         "modelo": "New Grandland GS Plus Hybrid 136HP AT (PASAJEROS)",
-        "precio_lista_sin_iva": 30831932773109250,
+        "precio_lista_sin_iva": 30831933,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.035,
+                "prof_t2": 0.04499999999999999,
+                "noprof_t1": 0.02500000000000001,
+                "noprof_t2": 0.03499999999999999,
+                "gc": 0.049999999999999996
+            },
+            "red": {
+                "prof_t1": 0.024999999999999998,
+                "prof_t2": 0.034999999999999996,
+                "noprof_t1": 0.034999999999999996,
+                "noprof_t2": 0.045,
+                "gc": 0.049999999999999996
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 2338445.378151261,
@@ -1333,7 +1723,7 @@ const autos_db = [
         "id": "peugeot-208-mca-style-puretech-100-pasajeros",
         "marca": "Peugeot",
         "modelo": "208 MCA Style Gasolina 100hp MT (PASAJEROS)",
-        "precio_lista_sin_iva": 1553781512605042,
+        "precio_lista_sin_iva": 15537815,
         "margen_compra_pct": 0.1,
         "b2b": {
             "stellantis": {
@@ -1373,9 +1763,24 @@ const autos_db = [
         "id": "peugeot-208-mca-allure-mhev-136-edct6-pasajeros",
         "marca": "Peugeot",
         "modelo": "208 MCA Allure Hybrid 136hp AT (PASAJEROS)",
-        "precio_lista_sin_iva": 2015966386554622,
+        "precio_lista_sin_iva": 20159664,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.04499999999999999,
+                "prof_t2": 0.05499999999999999,
+                "noprof_t1": 0.03499999999999999,
+                "noprof_t2": 0.04499999999999999,
+                "gc": 0.08000000000000002
+            },
+            "red": {
+                "prof_t1": 0.034999999999999996,
+                "prof_t2": 0.045,
+                "noprof_t1": 0.045,
+                "noprof_t2": 0.055,
+                "gc": 0.06
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 1512815.1260504203,
@@ -1398,9 +1803,24 @@ const autos_db = [
         "id": "peugeot-208-mca-gt-ev-pasajeros",
         "marca": "Peugeot",
         "modelo": "208 MCA GT Electric (PASAJEROS)",
-        "precio_lista_sin_iva": 2234453781512605,
+        "precio_lista_sin_iva": 22344538,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.04499999999999999,
+                "prof_t2": 0.05499999999999999,
+                "noprof_t1": 0.03499999999999999,
+                "noprof_t2": 0.04499999999999999,
+                "gc": 0.08000000000000002
+            },
+            "red": {
+                "prof_t1": 0.034999999999999996,
+                "prof_t2": 0.045,
+                "noprof_t1": 0.045,
+                "noprof_t2": 0.055,
+                "gc": 0.06
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 1038025.2100840337,
@@ -1423,9 +1843,24 @@ const autos_db = [
         "id": "peugeot-2008-mca-style-mhev-136-edct6-pasajeros",
         "marca": "Peugeot",
         "modelo": "2008 MCA Style Hybrid 136hp AT (PASAJEROS)",
-        "precio_lista_sin_iva": 19487394957983196,
+        "precio_lista_sin_iva": 19487395,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.04499999999999999,
+                "prof_t2": 0.05499999999999999,
+                "noprof_t1": 0.03499999999999999,
+                "noprof_t2": 0.04499999999999999,
+                "gc": 0.08000000000000002
+            },
+            "red": {
+                "prof_t1": 0.034999999999999996,
+                "prof_t2": 0.045,
+                "noprof_t1": 0.045,
+                "noprof_t2": 0.055,
+                "gc": 0.06
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 2369957.9831932774,
@@ -1448,9 +1883,24 @@ const autos_db = [
         "id": "peugeot-2008-mca-allure-mhev-136-edct6-pasajeros",
         "marca": "Peugeot",
         "modelo": "2008 MCA Allure Hybrid 136hp AT (PASAJEROS)",
-        "precio_lista_sin_iva": 21252100840336136,
+        "precio_lista_sin_iva": 21252101,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.04499999999999999,
+                "prof_t2": 0.05499999999999999,
+                "noprof_t1": 0.03499999999999999,
+                "noprof_t2": 0.04499999999999999,
+                "gc": 0.08000000000000002
+            },
+            "red": {
+                "prof_t1": 0.034999999999999996,
+                "prof_t2": 0.045,
+                "noprof_t1": 0.045,
+                "noprof_t2": 0.055,
+                "gc": 0.06
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 2830042.0168067226,
@@ -1473,9 +1923,24 @@ const autos_db = [
         "id": "peugeot-2008-mca-gt-mhev-136-edct6-pasajeros",
         "marca": "Peugeot",
         "modelo": "2008 MCA GT Hybrid 136hp AT (PASAJEROS)",
-        "precio_lista_sin_iva": 24025210084033616,
+        "precio_lista_sin_iva": 24025210,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.04499999999999999,
+                "prof_t2": 0.05499999999999999,
+                "noprof_t1": 0.03499999999999999,
+                "noprof_t2": 0.04499999999999999,
+                "gc": 0.08000000000000002
+            },
+            "red": {
+                "prof_t1": 0.034999999999999996,
+                "prof_t2": 0.045,
+                "noprof_t1": 0.045,
+                "noprof_t2": 0.055,
+                "gc": 0.06
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 2592647.0588235296,
@@ -1498,9 +1963,24 @@ const autos_db = [
         "id": "peugeot-2008-mca-gt-ev-pasajeros",
         "marca": "Peugeot",
         "modelo": "2008 MCA GT Electric (PASAJEROS)",
-        "precio_lista_sin_iva": 24865546218487396,
+        "precio_lista_sin_iva": 24865546,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.04499999999999999,
+                "prof_t2": 0.05499999999999999,
+                "noprof_t1": 0.03499999999999999,
+                "noprof_t2": 0.04499999999999999,
+                "gc": 0.08000000000000002
+            },
+            "red": {
+                "prof_t1": 0.034999999999999996,
+                "prof_t2": 0.045,
+                "noprof_t1": 0.045,
+                "noprof_t2": 0.055,
+                "gc": 0.06
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 975000,
@@ -1523,7 +2003,7 @@ const autos_db = [
         "id": "peugeot-308-allure-puretech-eat8-pasajeros",
         "marca": "Peugeot",
         "modelo": "308 Allure Gasolina 130hp AT (PASAJEROS)",
-        "precio_lista_sin_iva": 1999159663865546,
+        "precio_lista_sin_iva": 19991597,
         "margen_compra_pct": 0.1,
         "b2b": {
             "stellantis": {
@@ -1563,9 +2043,24 @@ const autos_db = [
         "id": "peugeot-308-allure-mhev-136-edct6-pasajeros",
         "marca": "Peugeot",
         "modelo": "308 Allure Hybrid 136hp AT (PASAJEROS)",
-        "precio_lista_sin_iva": 2377310924369748,
+        "precio_lista_sin_iva": 23773109,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.04499999999999999,
+                "prof_t2": 0.05499999999999999,
+                "noprof_t1": 0.03499999999999999,
+                "noprof_t2": 0.04499999999999999,
+                "gc": 0.08000000000000002
+            },
+            "red": {
+                "prof_t1": 0.034999999999999996,
+                "prof_t2": 0.045,
+                "noprof_t1": 0.045,
+                "noprof_t2": 0.055,
+                "gc": 0.06
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 2767016.8067226894,
@@ -1588,9 +2083,24 @@ const autos_db = [
         "id": "peugeot-308-gt-puretech-130-eat8-pasajeros",
         "marca": "Peugeot",
         "modelo": "308 GT Gasolina 130hp AT (PASAJEROS)",
-        "precio_lista_sin_iva": 229327731092437,
+        "precio_lista_sin_iva": 22932773,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.04499999999999999,
+                "prof_t2": 0.05499999999999999,
+                "noprof_t1": 0.03499999999999999,
+                "noprof_t2": 0.04499999999999999,
+                "gc": 0.08000000000000002
+            },
+            "red": {
+                "prof_t1": 0.034999999999999996,
+                "prof_t2": 0.045,
+                "noprof_t1": 0.045,
+                "noprof_t2": 0.055,
+                "gc": 0.06
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 1359453.781512605,
@@ -1613,9 +2123,24 @@ const autos_db = [
         "id": "peugeot-308-gt-mhev-136-edct6-pasajeros",
         "marca": "Peugeot",
         "modelo": "308 GT Hybrid 136hp AT (PASAJEROS)",
-        "precio_lista_sin_iva": 26714285714285716,
+        "precio_lista_sin_iva": 26714286,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.04499999999999999,
+                "prof_t2": 0.05499999999999999,
+                "noprof_t1": 0.03499999999999999,
+                "noprof_t2": 0.04499999999999999,
+                "gc": 0.08000000000000002
+            },
+            "red": {
+                "prof_t1": 0.034999999999999996,
+                "prof_t2": 0.045,
+                "noprof_t1": 0.045,
+                "noprof_t2": 0.055,
+                "gc": 0.06
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 2693487.3949579834,
@@ -1638,9 +2163,24 @@ const autos_db = [
         "id": "peugeot-3008-active-pack-puretech-130-pasajeros",
         "marca": "Peugeot",
         "modelo": "3008 Active Pack Gasolina 130hp MT (PASAJEROS)",
-        "precio_lista_sin_iva": 21252100840336136,
+        "precio_lista_sin_iva": 21252101,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.04499999999999999,
+                "prof_t2": 0.05499999999999999,
+                "noprof_t1": 0.03499999999999999,
+                "noprof_t2": 0.04499999999999999,
+                "gc": 0.08000000000000002
+            },
+            "red": {
+                "prof_t1": 0.034999999999999996,
+                "prof_t2": 0.045,
+                "noprof_t1": 0.045,
+                "noprof_t2": 0.055,
+                "gc": 0.06
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 3082142.8571428573,
@@ -1663,7 +2203,7 @@ const autos_db = [
         "id": "peugeot-new-3008-allure-mhev-136-edct6-pasajeros",
         "marca": "Peugeot",
         "modelo": "New 3008 Allure Hybrid 136hp AT (PASAJEROS)",
-        "precio_lista_sin_iva": 25873949579831936,
+        "precio_lista_sin_iva": 25873950,
         "margen_compra_pct": 0.1,
         "b2b": {
             "stellantis": {
@@ -1703,9 +2243,24 @@ const autos_db = [
         "id": "peugeot-new-3008-gt-mhev-136-edct6-pasajeros",
         "marca": "Peugeot",
         "modelo": "New 3008 GT Hybrid 136hp AT (PASAJEROS)",
-        "precio_lista_sin_iva": 31336134453781516,
+        "precio_lista_sin_iva": 31336134,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.04499999999999999,
+                "prof_t2": 0.05499999999999999,
+                "noprof_t1": 0.03499999999999999,
+                "noprof_t2": 0.04499999999999999,
+                "gc": 0.08000000000000002
+            },
+            "red": {
+                "prof_t1": 0.034999999999999996,
+                "prof_t2": 0.045,
+                "noprof_t1": 0.045,
+                "noprof_t2": 0.055,
+                "gc": 0.06
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 3250210.0840336136,
@@ -1728,7 +2283,7 @@ const autos_db = [
         "id": "peugeot-new-5008-allure-mhev-136-edct6-pasajeros",
         "marca": "Peugeot",
         "modelo": "New 5008 Allure Hybrid 136hp AT (PASAJEROS)",
-        "precio_lista_sin_iva": 27974789915966388,
+        "precio_lista_sin_iva": 27974790,
         "margen_compra_pct": 0.1,
         "b2b": {
             "stellantis": {
@@ -1768,9 +2323,24 @@ const autos_db = [
         "id": "peugeot-new-5008-gt-mhev-136-edct6-pasajeros",
         "marca": "Peugeot",
         "modelo": "New 5008 GT Hybrid 136hp AT (PASAJEROS)",
-        "precio_lista_sin_iva": 33436974789915970,
+        "precio_lista_sin_iva": 33436975,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.04499999999999999,
+                "prof_t2": 0.05499999999999999,
+                "noprof_t1": 0.03499999999999999,
+                "noprof_t2": 0.04499999999999999,
+                "gc": 0.08000000000000002
+            },
+            "red": {
+                "prof_t1": 0.034999999999999996,
+                "prof_t2": 0.045,
+                "noprof_t1": 0.045,
+                "noprof_t2": 0.055,
+                "gc": 0.06
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 4038025.2100840337,
@@ -1793,7 +2363,7 @@ const autos_db = [
         "id": "peugeot-rifter-mca-allure-bluehdi-100-pasajeros",
         "marca": "Peugeot",
         "modelo": "Rifter MCA Allure Diesel 100hp MT (PASAJEROS)",
-        "precio_lista_sin_iva": 2066386554621849,
+        "precio_lista_sin_iva": 20663866,
         "margen_compra_pct": 0.1,
         "b2b": {
             "stellantis": {
@@ -1833,9 +2403,24 @@ const autos_db = [
         "id": "peugeot-rifter-mca-allure-puretech-130-eat8-pasajeros",
         "marca": "Peugeot",
         "modelo": "Rifter MCA Allure Gasolina 130hp AT (PASAJEROS)",
-        "precio_lista_sin_iva": 18563025210084036,
+        "precio_lista_sin_iva": 18563025,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.05499999999999999,
+                "prof_t2": 0.05499999999999999,
+                "noprof_t1": 0.04499999999999999,
+                "noprof_t2": 0.04499999999999999,
+                "gc": 0.08000000000000002
+            },
+            "red": {
+                "prof_t1": 0.045,
+                "prof_t2": 0.045,
+                "noprof_t1": 0.055,
+                "noprof_t2": 0.055,
+                "gc": 0.06
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 1048529.4117647059,
@@ -1858,9 +2443,24 @@ const autos_db = [
         "id": "peugeot-rifter-mca-allure-bluehdi-130-eat8-pasajeros",
         "marca": "Peugeot",
         "modelo": "Rifter MCA Allure Diesel 130hp AT (PASAJEROS)",
-        "precio_lista_sin_iva": 22176470588235296,
+        "precio_lista_sin_iva": 22176471,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.055,
+                "prof_t2": 0.09000000000000001,
+                "noprof_t1": 0.045,
+                "noprof_t2": 0.08000000000000002,
+                "gc": 0.15
+            },
+            "red": {
+                "prof_t1": 0.045000000000000005,
+                "prof_t2": 0.05,
+                "noprof_t1": 0.05500000000000001,
+                "noprof_t2": 0.060000000000000005,
+                "gc": 0.07
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 1378361.344537815,
@@ -1883,9 +2483,24 @@ const autos_db = [
         "id": "peugeot-rifter-mca-gt-diesel-130hp-at-pasajeros",
         "marca": "Peugeot",
         "modelo": "Rifter MCA GT Diesel 130hp AT (PASAJEROS)",
-        "precio_lista_sin_iva": 2503361344537815,
+        "precio_lista_sin_iva": 25033613,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.055,
+                "prof_t2": 0.09000000000000001,
+                "noprof_t1": 0.045,
+                "noprof_t2": 0.08000000000000002,
+                "gc": 0.15
+            },
+            "red": {
+                "prof_t1": 0.045000000000000005,
+                "prof_t2": 0.05,
+                "noprof_t1": 0.05500000000000001,
+                "noprof_t2": 0.060000000000000005,
+                "gc": 0.07
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 2063235.2941176472,
@@ -2070,7 +2685,22 @@ const autos_db = [
         "modelo": "New Traveller MCA L3 9P Diesel 180hp AT (COMERCIALES)",
         "precio_lista_sin_iva": 31690000,
         "margen_compra_pct": 0.1,
-        "b2b": null,
+        "b2b": {
+            "stellantis": {
+                "prof_t1": 0.055,
+                "prof_t2": 0.09000000000000001,
+                "noprof_t1": 0.045,
+                "noprof_t2": 0.08000000000000002,
+                "gc": 0.15
+            },
+            "red": {
+                "prof_t1": 0.045000000000000005,
+                "prof_t2": 0.05,
+                "noprof_t1": 0.05500000000000001,
+                "noprof_t2": 0.060000000000000005,
+                "gc": 0.07
+            }
+        },
         "medios_pago": {
             "contado": {
                 "aporte_stellantis_neto": 2707750,

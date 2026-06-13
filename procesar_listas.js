@@ -2,16 +2,44 @@ const fs = require('fs');
 const path = require('path');
 const XLSX = require('xlsx');
 
-function cleanMoney(val) {
-    if (!val) return 0;
-    val = String(val).replace(/\$/g, '').replace(/\./g, '').replace(/ /g, '').trim();
-    if (val === '' || val.startsWith('ISO') || val === '#N/D' || val === '-' || val === 'N/A') return 0;
-    const num = parseFloat(val);
-    return isNaN(num) ? 0 : num;
+function cleanString(s) {
+    if (!s) return '';
+    return String(s).toUpperCase()
+        .replace(/FAMIILIAL/g, '')
+        .replace(/FAMILIA/g, '')
+        .replace(/NUEVO/g, '')
+        .replace(/NEW/g, '')
+        .replace(/MCA/g, '')
+        .replace(/[\/\-_]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
 }
 
 function normalize(s) {
-    return String(s).toUpperCase().replace(/ /g, '').trim();
+    return cleanString(s).replace(/\s/g, '');
+}
+
+function cleanMoney(val) {
+    if (val === undefined || val === null || val === '') return 0;
+    if (typeof val === 'number') {
+        return Math.round(val);
+    }
+    let str = String(val).replace(/\$/g, '').replace(/ /g, '').trim();
+    if (str === '' || str.startsWith('ISO') || str === '#N/D' || str === '-' || str === 'N/A') return 0;
+    
+    // Check if it has both dot and comma (e.g. 10.831.932,77)
+    if (str.includes('.') && str.includes(',')) {
+        str = str.replace(/\./g, '').replace(/,/g, '.');
+    } else if (str.includes(',')) {
+        // E.g. 10831932,77 -> replace comma with dot
+        str = str.replace(/,/g, '.');
+    } else if (str.includes('.') && str.split('.').length > 2) {
+        // E.g. 10.831.932
+        str = str.replace(/\./g, '');
+    }
+    
+    const num = parseFloat(str);
+    return isNaN(num) ? 0 : Math.round(num);
 }
 
 function processFiles() {
@@ -20,10 +48,11 @@ function processFiles() {
     const b2bFile = allFiles.find(f => f.includes('Descuentos B2B') && f.endsWith('.xlsx') && !f.includes('~'));
     const files = allFiles.filter(f => f.startsWith('Lista de Precios') && f.endsWith('.xlsx') && !f.includes('~'));
 
-    const b2bData = {};
+    const b2bEntries = [];
     if (b2bFile) {
         const wbB2B = XLSX.readFile(path.join(__dirname, b2bFile));
         wbB2B.SheetNames.forEach(sheetName => {
+            const brand = sheetName.toUpperCase().trim();
             const data = XLSX.utils.sheet_to_json(wbB2B.Sheets[sheetName], {header: 1});
             for(let i=0; i<data.length; i++){
                 const row = data[i];
@@ -33,8 +62,10 @@ function processFiles() {
                         const rowStellantis = data[i+1] || [];
                         const rowRed = data[i+2] || [];
                         if(String(rowStellantis[4] || '').includes('Stellantis') && String(rowRed[4] || '').includes('RED')) {
-                            const normName = normalize(carName);
-                            b2bData[normName] = {
+                            b2bEntries.push({
+                                originalName: carName,
+                                familyName: row[2] ? String(row[2]).trim() : '',
+                                brand: brand,
                                 stellantis: {
                                     prof_t1: parseFloat(rowStellantis[5])||0,
                                     prof_t2: parseFloat(rowStellantis[6])||0,
@@ -49,7 +80,7 @@ function processFiles() {
                                     noprof_t2: parseFloat(rowRed[8])||0,
                                     gc: parseFloat(rowRed[10])||0
                                 }
-                            };
+                            });
                         }
                     }
                 }
@@ -73,7 +104,9 @@ function processFiles() {
                 const name = String(row[0] || '').trim();
                 const nameCol2 = String(row[2] || '').trim();
                 
-                if (!name || name.startsWith(';') || name.includes('VEH') || name.includes('KEY') || name.startsWith('Tope') || name.includes('LISTA')) {
+                const nameUpper = name.toUpperCase();
+                if (!name || name.startsWith(';') || name.includes('VEH') || name.includes('KEY') || name.startsWith('Tope') || name.includes('LISTA') ||
+                    nameUpper.includes('CÓDIGO') || nameUpper.includes('COD') || nameUpper.includes('REF') || nameUpper.includes('EDS')) {
                     return;
                 }
 
@@ -99,13 +132,44 @@ function processFiles() {
                 // Si es Comerciales, los aportes ya vienen SIN IVA (Netos). Si es Pasajeros, vienen CON IVA y hay que dividirlos por 1.19
                 const factor = isComerciales ? 1.0 : 1.19;
 
+                // Find matching B2B entry
+                const cleanCar = cleanString(name);
+                const candidates = b2bEntries.filter(b => b.brand === marca.toUpperCase());
+                
+                let b2bMatch = candidates.find(b => normalize(b.originalName) === normalize(name));
+                
+                if (!b2bMatch) {
+                    b2bMatch = candidates.find(b => {
+                        if (!b.familyName) return false;
+                        const cleanFam = cleanString(b.familyName);
+                        const familyParts = cleanFam.split(' ').filter(x => x.length > 0);
+                        return familyParts.some(part => {
+                            if (part === 'C3' && cleanCar.includes('C3 AIRCROSS')) return false;
+                            if (part.length <= 1) return false;
+                            return cleanCar.includes(part);
+                        });
+                    });
+                }
+
+                if (!b2bMatch) {
+                    b2bMatch = candidates.find(b => {
+                        const cleanB = cleanString(b.originalName);
+                        return cleanCar.includes(cleanB) || cleanB.includes(cleanCar);
+                    });
+                }
+
+                const b2b = b2bMatch ? {
+                    stellantis: b2bMatch.stellantis,
+                    red: b2bMatch.red
+                } : null;
+
                 const carData = {
                     id: `${marca}-${name}`.replace(/ /g, '-').toLowerCase() + `-${sheetName.toLowerCase()}`,
                     marca: marca,
                     modelo: `${nameCol2 || name} (${sheetName})`,
                     precio_lista_sin_iva: precioSinIva,
                     margen_compra_pct: 0.10,
-                    b2b: b2bData[normalize(name)] || null,
+                    b2b: b2b,
                     medios_pago: {
                         contado: {
                             aporte_stellantis_neto: cleanMoney(row[indices.tmp_stellantis]) / factor,

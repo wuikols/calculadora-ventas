@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Ventas - Pompeyo Carrasco</title>
+    <title>Cotizador de Precios - Pompeyo Carrasco</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -14,7 +14,7 @@
             --card-bg: rgba(30, 41, 59, 0.7);
             --primary: #3b82f6;
             --primary-hover: #2563eb;
-            --accent: #10b981;
+            --accent: #16a34a;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --border-color: rgba(255, 255, 255, 0.1);
@@ -264,17 +264,17 @@
         }
 
         .comparativa-box {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(59, 130, 246, 0.1));
-            border: 1px solid rgba(16, 185, 129, 0.3);
+            background: linear-gradient(135deg, rgba(22, 163, 74, 0.15), rgba(59, 130, 246, 0.15));
+            border: 1.5px solid rgba(22, 163, 74, 0.4);
             border-radius: 16px;
             padding: 1.5rem;
             margin-bottom: 1.5rem;
             font-size: 0.95rem;
             line-height: 1.5;
-            color: #d1fae5;
+            color: #e2fcf0;
             display: none;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            border-left: 4px solid var(--accent);
+            box-shadow: 0 4px 15px rgba(22, 163, 74, 0.15);
+            border-left: 5px solid var(--accent);
         }
         
         .comparativa-box.active {
@@ -321,9 +321,9 @@
             margin-top: 0.75rem;
         }
 
-        .semaforo-red { color: #ef4444 !important; }
-        .semaforo-yellow { color: #eab308 !important; }
-        .semaforo-green { color: #22c55e !important; }
+        .semaforo-red { color: #dc2626 !important; font-weight: 800; text-shadow: 0 0 10px rgba(220, 38, 38, 0.2); }
+        .semaforo-yellow { color: #d97706 !important; font-weight: 800; text-shadow: 0 0 10px rgba(217, 119, 6, 0.2); }
+        .semaforo-green { color: #16a34a !important; font-weight: 800; text-shadow: 0 0 10px rgba(22, 163, 74, 0.2); }
 
         .final-price-wrapper {
             text-align: right;
@@ -479,7 +479,7 @@
         <div class="section inputs-section">
             <div class="header-row">
                 <div>
-                    <h1>Calculadora de Ventas</h1>
+                    <h1>Cotizador de Precios</h1>
                     <p class="subtitle">Simulador y Optimizador Comercial B2B/Retail</p>
                 </div>
                 <button id="btnSettings" class="btn-icon gear-btn" title="Configurar Semáforo">⚙️</button>
@@ -819,7 +819,7 @@
 
             if (best) {
                 const typeName = best.type === 'retail' ? 'Venta Retail' : 'Venta Comercial';
-                comparativaBox.innerHTML = `<strong>Simulación Óptima:</strong> Con este modelo y medio de pago, la mejor opción es <strong>${typeName}</strong>, entregando un precio cliente de <strong>${formatMoney(best.precioBruto)}</strong> y manteniendo un <strong>${formatPercent(best.utilidadPct)}</strong> de margen.`;
+                comparativaBox.innerHTML = `<strong>🏆 Mejor Precio:</strong> Con este modelo y medio de pago, la mejor opción es <strong>${typeName}</strong>, entregando un precio cliente de <strong>${formatMoney(best.precioBruto)}</strong> y manteniendo un <strong>${formatPercent(best.utilidadPct)}</strong> de margen.`;
                 comparativaBox.classList.add('active');
             } else {
                 comparativaBox.classList.remove('active');
